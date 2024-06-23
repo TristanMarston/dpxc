@@ -32,10 +32,10 @@ const Hero = () => {
     const shapeImages = ['/dpxclogo-blue.jpg'];
 
     return (
-        <motion.div variants={containerVariants} initial='hidden' animate='visible' className='flex flex-col gap-20 m-12 laptop:mt-16'>
-            <div className='flex flex-col gap-5 w-full'>
+        <motion.div variants={containerVariants} initial='hidden' animate='visible' className='flex flex-col gap-20 mt-12 laptop:mt-16'>
+            <div className='flex flex-col gap-5 w-full items-center'>
                 <span className='flex justify-center w-full'>
-                    <span className='flex items-center gap-2 justify-center w-[275px] tiny:w-[350px] mobile:w-[400px] tablet:w-[550px] taptop:w-[690px] laptop:w-[850px]'>
+                    <span className='flex items-center gap-2 justify-center w-[275px] tiny:w-[350px] mobile:w-[400px] tablet:w-[575px] taptop:w-[690px] laptop:w-[850px]'>
                         <motion.div className='h-1 bg-[#00214B] rounded-full w-full relative top-0 left-0 -z-[1]'>
                             <motion.div
                                 className='h-1 bg-secondary rounded-full w-full'
@@ -70,7 +70,7 @@ const Hero = () => {
                         <Link
                             href={href || '#'}
                             key={title}
-                            className='px-5 py-1.5 text-xs tiny:text-sm mobile:text-base text-secondary rounded-full border-2 border-secondary shadow-[5px_5px_0_rgba(255,213,0,1)] hover:bg-background-lighter hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all'
+                            className='px-5 text-nowrap text-center py-1.5 text-xs tiny:text-sm mobile:text-base text-secondary rounded-full border-2 border-secondary shadow-[5px_5px_0_rgba(255,213,0,1)] hover:bg-background-lighter hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] transition-all'
                         >
                             {title}
                         </Link>
