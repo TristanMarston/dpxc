@@ -75,8 +75,8 @@ const MenuItems = ({ links, isOpen }: { links: NavLink[]; isOpen: boolean }) => 
 
     return (
         loaded && (
-            <nav className='fixed top-0 right-0 bottom-0 w-full bg-background-light translate-x-[100%] will-change-transform pt-24 z-[50]'>
-                <ul className='flex flex-col items-end gap-7 pr-3 tiny:pr-8 mobile:pr-12 pt-5 mr-5'>
+            <nav className='fixed top-0 right-0 bottom-0 w-full bg-background-light translate-x-[100%] will-change-transform pt-24 z-[50] overflow-y-auto'>
+                <ul className='flex flex-col items-end gap-7 pr-3 tiny:pr-8 mobile:pr-12 pt-5 mr-5 overflow-y-auto'>
                     {links.map(({ title, href, isDropdown, dropdownOptions }, index) =>
                         isDropdown ? (
                             <HoverListItemCollapsible

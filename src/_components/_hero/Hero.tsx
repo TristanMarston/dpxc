@@ -32,7 +32,7 @@ const Hero = () => {
     const shapeImages = ['/dpxclogo-blue.jpg'];
 
     return (
-        <motion.div variants={containerVariants} initial='hidden' animate='visible' className='flex flex-col gap-20 mt-8 laptop:mt-16'>
+        <motion.div variants={containerVariants} initial='hidden' animate='visible' className='flex flex-col gap-20 m-12 laptop:mt-16'>
             <div className='flex flex-col gap-5 w-full'>
                 <span className='flex justify-center w-full'>
                     <span className='flex items-center gap-2 justify-center w-[275px] tiny:w-[350px] mobile:w-[400px] tablet:w-[550px] taptop:w-[690px] laptop:w-[850px]'>

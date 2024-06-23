@@ -42,7 +42,7 @@ const Navbar = () => {
     return (
         <motion.nav
             animate={isOpen ? 'open' : 'closed'}
-            className='w-full bg-background-light h-[59px] mt-5 rounded-full text-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)] pl-2 pr-3 flex items-center justify-between'
+            className='w-full sticky top-5 bg-background-light h-[59px] rounded-full text-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)] pl-2 pr-3 flex items-center justify-between'
         >
             <a href='/'>
                 <Image src={'/dpxclogo.png'} alt='logo' width={60} height={60} />
