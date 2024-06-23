@@ -9,16 +9,16 @@ const MenuItemDropdown = ({ title, href, dropdownOptions }: { title: string; hre
         <NavigationMenuItem>
             <NavigationMenuTrigger className=''>
                 <Link href={href || '#'}>
-                    <NavigationMenuLink className={`rounded-full w-full text-base font-bold tracking-[-.1em]`}>{title}</NavigationMenuLink>
+                    <NavigationMenuLink className={`rounded-full w-full text-sm desktop:text-base font-bold`}>{title}</NavigationMenuLink>
                 </Link>
             </NavigationMenuTrigger>
 
-            <NavigationMenuContent className='grid grid-cols-2 grid-rows-2 w-[360px] items-start bg-background-light border-2 border-background-light outline-none shadow-[0_4px_30px_rgba(0,0,0,.4)]'>
+            <NavigationMenuContent className='flex flex-col w-[360px] items-start bg-background-light border-2 border-background-light outline-none shadow-[0_4px_30px_rgba(0,0,0,.4)]'>
                 {dropdownOptions.map(({ title, href, description }) => (
                     <Link href={href || '#'} className='w-full flex justify-start h-full' key={title + description}>
-                        <NavigationMenuLink className={`hover:bg-background-lighter rounded-md flex flex-col items-left w-full h-full p-3 tracking-[-.15em] text-secondary`}>
+                        <NavigationMenuLink className={`hover:bg-background-lighter rounded-md flex flex-col items-left w-full h-full p-3 text-secondary`}>
                             <h4 className='font-semibold'>{title}</h4>
-                            <p className='font-light text-[12px] tracking-tighter'>{description}</p>
+                            <p className='font-light text-[12px]'>{description}</p>
                         </NavigationMenuLink>
                     </Link>
                 ))}
@@ -33,7 +33,7 @@ const MenuItem = ({ title, href }: { title: string; href: string }) => {
     return (
         <NavigationMenuItem>
             <Link href={href || '#'} legacyBehavior passHref>
-                <NavigationMenuLink className={`font-semibold tracking-[-.1em]`}>{title}</NavigationMenuLink>
+                <NavigationMenuLink className={`font-semibold text-sm desktop:text-base`}>{title}</NavigationMenuLink>
             </Link>
         </NavigationMenuItem>
     );

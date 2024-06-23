@@ -5,7 +5,7 @@ const Path = ({ color, ...props }: { color: string; [key: string]: any }) => <mo
 const MenuToggle = ({ toggle, isOpen, color }: { toggle: () => void; isOpen: boolean; color: string }) => (
     <button
         onClick={toggle}
-        className={`${isOpen ? 'bg-secondary shadow-[0_4px_30px_rgba(0,0,0,.7)]' : 'bg-transparent shadow-none'} z-50 p-3 rounded-full grid place-items-center transition-colors`}
+        className={`${isOpen ? 'bg-secondary shadow-[0_4px_30px_rgba(0,0,0,.7)]' : 'bg-transparent shadow-none'} z-[60] p-3 rounded-full grid place-items-center transition-colors`}
     >
         <svg width='21' height='21' viewBox='0 0 21 20'>
             <Path

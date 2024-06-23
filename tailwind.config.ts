@@ -15,7 +15,11 @@ const config = {
         screens: {
             tiny: '350px',
             mobile: '450px',
+            tablet: '600px',
+            taptop: '800px',
             laptop: '1000px',
+            desktop: '1200px',
+            monitor: '1400px',
         },
         extend: {
             keyframes: {

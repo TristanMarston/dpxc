@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Lexend_Mega } from 'next/font/google';
+import { Unbounded } from 'next/font/google';
 import './globals.css';
 
-const fredoka = Lexend_Mega({ subsets: ['latin'] });
+const fredoka = Unbounded({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'DPXC',
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={`${fredoka.className} min-h-screen min-w-screen p-0 mx-5 bg-background`}>{children}</body>
+            <body className={`${fredoka.className} overflow-x-hidden min-h-screen min-w-screen p-0 mx-5 bg-gradient-to-t from-background-lighter to-background`}>{children}</body>
         </html>
     );
 }
