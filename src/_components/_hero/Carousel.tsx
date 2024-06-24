@@ -46,7 +46,7 @@ const Card = ({ card }: { card: CardType }) => {
       ></div>
       <div className="absolute inset-0 z-10 grid justify-items-start items-end">
         <p className="bg-gradient-to-br from-white/20 to-white/0 p-8 text-2xl font-black uppercase text-white backdrop-blur-lg">
-          "{card.title}"
+          &#34;{card.title}&#34;
         </p>
       </div>
       <div className="absolute inset-0 bg-secondary opacity-20" />
