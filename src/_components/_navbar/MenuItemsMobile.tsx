@@ -66,7 +66,8 @@ const MenuItems = ({ links, isOpen }: { links: NavLink[]; isOpen: boolean }) => 
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        if (!isOpen) setSelectedDropdown('null');
+        if (!isOpen) {
+            setSelectedDropdown('null')};
     }, [isOpen]);
 
     useEffect(() => {

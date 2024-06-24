@@ -6,7 +6,7 @@ const fredoka = Unbounded({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'DPXC',
-    description: 'Dos Pueblos High School - Cross Country',
+    description: "Let's go Chargers! Running is funning!",
     icons: {
         icon: [
             {
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={`${fredoka.className} overflow-x-hidden min-h-screen min-w-screen p-0 mx-5 bg-gradient-to-t from-background-lighter to-background`}>{children}</body>
+            <body className={`${fredoka.className} overflow-x-hidden min-h-screen min-w-screen p-0 mx-5 bg-gradient-to-t from-background-lightest to-background`}>{children}</body>
         </html>
     );
 }

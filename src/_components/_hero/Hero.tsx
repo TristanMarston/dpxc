@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import { Dela_Gothic_One } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
+import Carousel from './Carousel';
+import CarouselComponent from './Carousel';
+import Example from './Carousel';
 
 const delaGothic = Dela_Gothic_One({ weight: '400', subsets: ['latin'] });
 
@@ -32,7 +35,7 @@ const Hero = () => {
     const shapeImages = ['/dpxclogo-blue.jpg'];
 
     return (
-        <motion.div variants={containerVariants} initial='hidden' animate='visible' className='flex flex-col gap-20 mt-12 laptop:mt-16'>
+        <motion.div variants={containerVariants} initial='hidden' animate='visible' className='flex flex-col mt-12 laptop:mt-16'>
             <div className='flex flex-col gap-5 w-full items-center'>
                 <span className='flex justify-center w-full'>
                     <span className='flex items-center gap-2 justify-center w-[275px] tiny:w-[350px] mobile:w-[400px] tablet:w-[575px] taptop:w-[690px] laptop:w-[850px]'>
@@ -80,6 +83,7 @@ const Hero = () => {
             <div className='w-full h-full rounded-lg items-center relative' style={{ backgroundImage: `url('/2023xcteamphoto.png')`, backgroundSize: 'cover' }}>
                 <div className='absolute inset-0 bg-secondary opacity-20 rounded-lg'></div>
             </div>
+            <Example />
         </motion.div>
     );
 };

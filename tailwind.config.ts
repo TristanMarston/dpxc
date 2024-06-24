@@ -40,6 +40,7 @@ const config = {
                 background: '#001E44',
                 'background-light': '#00295E',
                 'background-lighter': '#00377D',
+                'background-lightest': '#0048A4',
 
                 secondary: '#FFD500',
                 'secondary-light': '#FFF6C7',
