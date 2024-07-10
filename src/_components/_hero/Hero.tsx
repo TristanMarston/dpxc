@@ -4,7 +4,6 @@ import { NavLink, itemVariants } from '@/app/context';
 import { motion } from 'framer-motion';
 import { Dela_Gothic_One } from 'next/font/google';
 import Link from 'next/link';
-import WeAre from './WeAre';
 import LinesAnimation from './LinesAnimation';
 import AutoscrollCarousel from './Carousel';
 
