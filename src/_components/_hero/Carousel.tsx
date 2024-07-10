@@ -22,12 +22,12 @@ const cards: CardType[] = [
         id: 1,
     },
     {
-        url: '/dpxc-landing-runners-1.jpg',
+        url: '/dpxc-landing-runners-1.JPG',
         title: 'RUNNERS.',
         id: 2,
     },
     {
-        url: '/dpxc-landing-dedicated-1.jpg',
+        url: '/dpxc-landing-dedicated-1.JPG',
         title: 'DEDICATED.',
         id: 3,
     },
@@ -42,22 +42,22 @@ const cards: CardType[] = [
         id: 5,
     },
     {
-        url: '/dpxc-landing-strong-1.jpg',
+        url: '/dpxc-landing-strong-1.JPG',
         title: 'STRONG.',
         id: 6,
     },
     {
-        url: '/dpxc-landing-team-2.jpg',
+        url: '/dpxc-landing-team-2.JPG',
         title: 'A TEAM.',
         id: 7,
     },
     {
-        url: '/dpxc-landing-runners-2.jpg',
+        url: '/dpxc-landing-runners-2.JPG',
         title: 'RUNNERS.',
         id: 8,
     },
     {
-        url: '/dpxc-landing-dedicated-2.jpg',
+        url: '/dpxc-landing-dedicated-2.JPG',
         title: 'DEDICATED.',
         id: 9,
     },
@@ -72,7 +72,7 @@ const cards: CardType[] = [
         id: 11,
     },
     {
-        url: '/dpxc-landing-strong-2.jpg',
+        url: '/dpxc-landing-strong-2.JPG',
         title: 'STRONG.',
         id: 12,
     },
