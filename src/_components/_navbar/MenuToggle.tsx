@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
 
-const Path = ({ color, ...props }: { color: string; [key: string]: any }) => <motion.path fill='transparent' strokeWidth='3' stroke={color} strokeLinecap='round' {...props} />;
+const Path = ({ color, isOpen, ...props }: { color: string; isOpen: boolean; [key: string]: any }) => (
+    <motion.path fill='transparent' strokeWidth='3' stroke={color} animate={isOpen ? 'open' : 'closed'} strokeLinecap='round' {...props} />
+);
 
 const MenuToggle = ({ toggle, isOpen, color }: { toggle: () => void; isOpen: boolean; color: string }) => (
     <button
         onClick={toggle}
         className={`${
-            isOpen ? 'bg-secondary shadow-[0_4px_30px_rgba(0,0,0,.7)] sticky top-[1.25rem] overflow-y-hidden' : 'bg-transparent shadow-none '
-        } z-[60] p-3 rounded-full grid place-items-center transition-colors`}
+            isOpen ? 'bg-secondary shadow-[0_4px_30px_rgba(0,0,0,.7)] overflow-y-hidden ' : 'bg-transparent shadow-none '
+        } z-[60] p-3 rounded-full grid place-items-center transition-colors laptop:hidden sticky`}
     >
         <svg width='21' height='21' viewBox='0 0 21 20'>
             <Path
@@ -17,6 +19,7 @@ const MenuToggle = ({ toggle, isOpen, color }: { toggle: () => void; isOpen: boo
                     open: { d: 'M 3 16.5 L 17 2.5' },
                 }}
                 initial={{ d: 'M 2 2.5 L 20 2.5' }}
+                isOpen={isOpen}
             />
             <Path
                 color={color}
@@ -26,6 +29,7 @@ const MenuToggle = ({ toggle, isOpen, color }: { toggle: () => void; isOpen: boo
                     closed: { opacity: 1 },
                     open: { opacity: 0 },
                 }}
+                isOpen={isOpen}
             />
             <Path
                 color={color}
@@ -34,6 +38,7 @@ const MenuToggle = ({ toggle, isOpen, color }: { toggle: () => void; isOpen: boo
                     open: { d: 'M 3 2.5 L 17 16.346' },
                 }}
                 initial={{ d: 'M 2 16.346 L 20 16.346' }}
+                isOpen={isOpen}
             />
         </svg>
     </button>

@@ -9,8 +9,8 @@ const HoverListItem = ({ title, href, className }: { title: string; href: string
 
     return (
         <li onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <Link href={href || '#'} className={`font-bold text-2xl min-[380px]:text-3xl w-full flex justify-end`}>
-                <p className={`inline-block ${className}`}>
+            <Link href={href || '#'} className={`font-bold text-xl min-[320px]:text-2xl min-[400px]:text-3xl w-full flex justify-end`}>
+                <p className={`inline-block text-secondary text-right ${className}`}>
                     {title}
                     <motion.div className='h-1 bg-secondary rounded-full' initial={{ width: '0%' }} animate={{ width: isHovered ? '100%' : '0%' }} transition={{ duration: 0.2 }} />
                 </p>
@@ -43,9 +43,9 @@ const HoverListItemCollapsible = ({
     };
 
     return dropdownOptions ? (
-        <motion.li className='flex flex-col cursor-pointer' variants={parentVariants} initial={false} animate={selectedDropdown === title ? 'open' : 'closed'}>
+        <motion.li className='flex flex-col cursor-pointer text-secondary' variants={parentVariants} initial={false} animate={selectedDropdown === title ? 'open' : 'closed'}>
             <div className='flex gap-2 items-center mb-2' onClick={() => setSelectedDropdown((prev) => (prev === title ? 'null' : title))}>
-                <Link href={href || '#'} className='font-bold text-2xl min-[380px]:text-3xl select-none'>
+                <Link href={href || '#'} className='font-bold text-xl min-[320px]:text-2xl min-[400px]:text-3xl select-none text-right'>
                     {title}
                 </Link>
                 <ChevronDown className={`${title === selectedDropdown ? 'rotate-180' : 'rotate-0'} w-8 h-8 transition-all`} />
@@ -67,7 +67,8 @@ const MenuItems = ({ links, isOpen }: { links: NavLink[]; isOpen: boolean }) => 
 
     useEffect(() => {
         if (!isOpen) {
-            setSelectedDropdown('null')};
+            setSelectedDropdown('null');
+        }
     }, [isOpen]);
 
     useEffect(() => {
@@ -76,8 +77,8 @@ const MenuItems = ({ links, isOpen }: { links: NavLink[]; isOpen: boolean }) => 
 
     return (
         loaded && (
-            <nav className='fixed top-0 right-0 bottom-0 w-full bg-background-light translate-x-[100%] will-change-transform pt-24 z-[50] overflow-y-auto'>
-                <ul className='flex flex-col items-end gap-7 pr-3 tiny:pr-8 mobile:pr-12 pt-5 mr-5 overflow-y-auto'>
+            <nav className='fixed top-0 right-0 bottom-0 w-full min-h-full bg-background-light translate-x-[100%] will-change-transform pt-24 z-[50] overflow-y-auto laptop:hidden'>
+                <ul className='flex flex-col items-end gap-7 pr-3 mobile:pr-8 pt-5 mr-5 overflow-y-auto'>
                     {links.map(({ title, href, isDropdown, dropdownOptions }, index) =>
                         isDropdown ? (
                             <HoverListItemCollapsible

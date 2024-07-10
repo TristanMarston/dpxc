@@ -1,96 +1,174 @@
-import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef } from "react";
+'use client';
 
-const Example = () => {
-  return (
-    <div className="bg-transparent w-screen -ml-5">
-      <HorizontalScrollCarousel />
-    </div>
-  );
-};
+import AutoScroll from 'embla-carousel-auto-scroll';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { useRef, useState } from 'react';
+import { Dela_Gothic_One } from 'next/font/google';
+import { motion, stagger } from 'framer-motion';
+import { itemVariants, useScreenWidth } from '@/app/context';
 
-const HorizontalScrollCarousel = () => {
-  const targetRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-
-  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
-
-  return (
-    <section ref={targetRef} className="relative h-[200vh] bg-transparent">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden">
-        <motion.div style={{ x }} className="flex gap-4">
-          {cards.map((card) => {
-            return <Card card={card} key={card.id} />;
-          })}
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-const Card = ({ card }: { card: CardType }) => {
-  return (
-    <div
-      key={card.id}
-      className="group relative h-[500px] w-[500px] overflow-hidden bg-neutral-200"
-    >
-      <div
-        style={{
-          backgroundImage: `url(${card.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
-      ></div>
-      <div className="absolute inset-0 z-10 grid justify-items-start items-end">
-        <p className="bg-gradient-to-br from-white/20 to-white/0 p-8 text-2xl font-black uppercase text-white backdrop-blur-lg">
-          &#34;{card.title}&#34;
-        </p>
-      </div>
-      <div className="absolute inset-0 bg-secondary opacity-20" />
-    </div>
-  );
-};
-
-export default Example;
+const delaGothic = Dela_Gothic_One({ weight: '400', subsets: ['latin'] });
 
 type CardType = {
-  url: string;
-  title: string;
-  id: number;
+    url: string;
+    title: string;
+    id: number;
 };
 
 const cards: CardType[] = [
-  {
-    url: "https://lh3.googleusercontent.com/fife/ALs6j_GUA8FC3DYcFGgBbmRHd0ia5xuP12rFzc5EMwmuE_WX1f7OKvjnMMks6fw4Y3hU7gUYHdud4NiX9W3x-XDzuz80j1B0GQSu-tD_Wqw6efv1a_3MoMvUWL8pzEYoSgB150jBTWuY5uT3a47MtVuCMiEYWuENdnTeczubj2T6EE-ijQcjZpa0GNUuMsObFTZU8a04LKS8aApHs8SN1gIeDF0ZUJr7DUSFTk9tiSWiEehPqOTkJDLMvDtxfLzAkvGytVKW5n8iTouy1e-gde2PAVBT7G58M03TBWllp1dlKm4MWkmv6ataOWMsBKj7QG8Y3sPA9ziTMrLvNeSuMUPnUDYT9KsuVwrjj_Kxz05kHnr9PtEldClpz95JsS3L9mHpYKgbW6CHWszGolcWGppzGeVnVQy6T_pGyRQooU1QSsDBWCY2rn3zF7KRvM-5uaU6C_N-lJSeF65eBCImWf2wRtm8DT3SKWzHZa9yn5TDXzTGnHIvrovs1wSZQevTlLwgMGANHp87kk5r9dAkSMh2L7BW1N9tb01PR4OybP5ZPHWfL-oUGdNAW0WNTwqJ-1ppaeR-m1KVjmvWXjo1SSBzg9Mel5XIzsQNfIJN76Qq-caSMI2Ch_7kqi4gvhLJFZI2vdJtwy794OfiHU_0r764QNBqSts-Z8JJwIEiYU0Uj0cmDxc-HpfLnCcn2WfmHK8QO_Pr5uux97kv-RYFAA6D_GdSwZRJj_CWvAehY6Z7YKQLwdqG6KSJ6ssh5uz4LkbdUrj4lk_82wZpMmygrmgCOz-spaRzsCyaNgWmH-rgx5Cl5D4Zuu_xCuNCC7Ut_G8Rb5t38f1OT21syAgmT3cBpRudA9TmfygEIpu2qz32vTomNNRzypEW8amrF9DtU-36fO9q8N62NQ6Zou1U_pVLEMwP6cbeXMrq_r7vSQxcG9oE8t9dyfcECrLX7GUvC4tSZbb82BwKO3IfbS9RqkUYDVkF_hBWaRZy-rJOcwjaG9IFrpgtt5phjBnI4bOBRyQ6kww8KPhcy854yg33I_ZZYzvDSnerUFAaINUJVM3BS63LoD0NhJu9esKfd9_rW15er1MChsDegsRdsB5pBCNXUW9sLrirDmHdbOzL1nGxlnkDBaSsQGvfx7O_oK8SKn77V3e6H24pFT1GcJM_gJN2-t_RIKRDdwN7EgbxhKlU1xXyWVcPtFg73VtiPJb4reoHkF3YjcW7bSHyywlVinUooX-uCRff2F4C2H78FhHW4_77EpZc-Nep5eQ1emN6-4i8TT09dxvmW8Eoh8fFZJZaUf3lh3Bj7TeVo5r673xLWhWZ86OdfPezOBmxwUKqPNduakHYpATTeOWLkgvkLFwdq5tSPUTq52Ly64jmsWeZBSYd9pusT5i7lq2GytjVYG3gN0HOlNjUxQKVzfFfNRiEZ_gHucjk3UUG6JVU-bJ6Xa9X2DHOXPuzdPqOMcJRW0VMlpDBlzr_h_XKnwUek2J7_NcvxN5-BfX3Ef2f8DMaSpXc8LzPZlUKFPyPSk1iRsu9WvRRCV9RKPGiTsDTcJcs7PClefWZrolF4LMEiqlcmuk0C8EsGz_Oo01johjvGiqNZNcKQYG6K0cYocEVUPE=w3420-h1808",
-    title: "The journey of a thousand miles begins with a single step.",
-    id: 1,
-  },
-  {
-    url: "https://lh3.googleusercontent.com/fife/ALs6j_EkRE1lGWN8c-SlWFBEl115gGdVcYp3b1EG2BXhnjIRW3QZ7daKw11GsgKZGkfHFq35U6Nf2FzZT6EUjosjfrvg5k8J98KWgX1MPToK8KHUus-YJwhR3qx4vVV7viMYnJyS6IeA3LKT43vdCMs9FdIJpFFmJVI_gPmfX5xqZk49YA5ux7cnP6wP56QXLaKo_iGmAtsXsXJ294x3Q-v87MHJCB0MCaJaQnK8Qcv8fyR74ab4w71h_GjBwEvV8_TZ_HDpfXMyAVex9IgW7Q3CBvPAWaR92si_R2GHKgrNZOf9ypqwi0SJ-NF7ULh0kZ4pw1R7B6e_qNW4xP0abJN7ii_pgm_6S8GX_-Inc-bDw9Wxt08QFYEffpX7QJHWC6wwQkRWIEX0IQjCppqk4XGfDRIST8GaaGWiKfic56y5SfX7gygsgbTq5SR4r-XbPKjaOe6lfai3n5foyatnALXuC4LLT1qXXJqhli9X69tZxir3xig_QMzdOqVZpUMNqHK6oUxUVdMhcT0eDfdEHXixcGMKT7BAVkGtDoIqaOz9wXARBbPaivxUrQG5IMFURaZFlZbhzS0rGjzGqB7-NQb9sAGdFhwZaKEFs4iEZOGc9O0FvRlDSqMULFOGtb9QSJluuN_1GkTZzozQs9-N_CnTNIONDhwFsfW_OKdzb2XOt5-szOKjty4EfZxxeIlkS_tdfAh_weJeyck6FetkB7ZfXJCAIZmkoXkdW7NEmdoyadwPbsAg6obAf-9u-ma-2SGwZI6gYemZnEVbIQbhlnEPqUYmqAooRsZTO7In0-bCadjyae62cVEYKcw0jTvocTPB7BIxrxwz4ua_c8M-WPY9uvd_mQN8EfMIfD-TOFZZKn5fvwQ1HXWvZkuoN5K3mbjPnRQWAL1E0smtbA37RSjHUVb6Dbw9QRL5gV3JAIZvtotHDCzfDB8aHvgVTnCuQpibQ0PnsqJtN40LkPOUW69D7fsQ0MAik3uGC_0nqqAw5P-3HLaP9UNflrwWzK3Y7tUnNZ3SIA9-MheBb2NxtbfaQlNHiyrfuzBVF2NvRjy_6b1P-TVVuikcbS1kNC3W8hH7Stg9n2jbQocho-of1OwanuYdIqUMprMJAoIpRdfmtnfnNLI5iim_MFrdKUXEXPB2ANLDVzfwM7T3wkuauve8G2pOsfTUBroQkjP6rOpsofGW7UPh87TToTm3CIvMZpFwqMvnOIRhEVVfVhv1FB52UFwLdTKDDZJnzgmCH7lFv1sqiryK1iOyduHWtYWPvsKt-VIsWv2P9Owk5UMX3dQOdmZ6UfvZFpdKw5cNRgPa3LK0_whnJodePPfAz9YujV-B5eeNrMNJHOaUwTcvzKVqT1o8DlqnlpVXWVaLddv1Z87rFQNwAWCKLOmR3tiiH862nprl6lgVlP3cL_pkXQTYu6ZDbI8d829gn0vdMWuXt-CBFrA2zaTyPazUavhBfNZ5Yz2hp6luyk1NzhaC3xS8bTHUcDq4Aaln3NoeHynvRFVtz2xeZj_pP79br_a_YEuQ6YBJ4GNiU_O2JzLK0fR8ajaiGqF-HAx8KUUx5guBY2drOTS9_0SgK5odS0n20Gf_P1-Gl1XOWg2YtUIoB2M=w3420-h1808",
-    title: "Every mile is a memory. Every step is a victory.",
-    id: 2,
-  },
-  {
-    url: "https://lh3.googleusercontent.com/fife/ALs6j_Ewr9Tr1Xld9VCHrkTHvgQuTi8QzdaikYFlm6FVrMaaaafvPgjQQBNBigoS2vG8-Zhf-8MO_RnKQIHZkb9dX5b6pKDw9ArVU5WwQJ0bFVgxK5AHBV3sWTv_MepDhY-xkR6HOzbnWEWElXbXqc4yF0oAtjJjFNYd5ddg2Nzx1w3VawRiY7DvOIUYFxBx-3ElthijAY8CKGkw4lkQH9ZCvZNKLjhkvRcTo_WlwykK8dOnMr5OnDExVfyoOHzuZanz6AnULlpOvptuugA9VeZ6ubL5A1lnzcBbBQPzeAXueJlesgTuBTnrYFOQEv4v2nBdcSpQiclIIhwAF7iKwcXOups9LhUlPlswv4pgg5KhAbfXLx7QSg66rrLrBuiY1ktKk3DXCHfc-ZIzlOp0cXx7BmE4xLw8p2IGp6xGLqczXH2fjjouL3bUuZGkmoM6ZEiizfGlvau3c-VCC2BJSyS5PGkeqmgHRjHQEFCH4wyKcDm4I5tt5UiWozYds0d1WzVuLCoU_dBqXyRF1sCK1IF8ZH_1iX-wki5tyuaZUbxEbSb0Vyj6cCbIOeeirgSUifYb_boUdfVxQU29jqVJI0RbIsdMxv-wTkvej9L1ebdONT-Y8bM8CQzHHHQbzuhkSn_HFXE4Ye_1GLAyCp_a3QN0dFHjJUa49cjhtdW5EaCgZUgHphKhtBee6eFUcU9cHKZvdSv3tR7xfaVupMDvEVYSsOhOiV3PQJjtRoXm2ReKEhnSOqmiC9fLmBlFrKDp2SoZSTxiIEBZ0pCMB4Qof1SRKHoddKqC5SARlGqfr60UJcUs2Ap6dk6N8QtsZvAzF1rjyMICEVWFqkDfLMH8lrCfYpAqLceVubwvkQ937lAx-thx0lslohs5-5Lm1saCb1OLLr1whqgd6eUXxTs06d7_Sz_EHDb-y6tHQ5rSUXpdDs6S5B3aW1ab5RiLvsragChXIsnOEV0DIpHj7qdoQSx_wcPBMbAUXCLJiBnKicMfRDHwJPJnMjTJ-KUCTePyNMAz9cu3tLuRr0v_JALHRfDbeD3skpWPeawfuG1aX5Hipm44mysFAnJID7kHB48eVkm5cxy7qa3WXzGzR6euMD-SRyd8hCqOU9bEel-kqsIvjr5Q9RoeTFVIfXuXnedMrgeWX3fwG2MZ21NtLM3AoNipu1aR1jHuwppV1qoZ3Won-UV4Dwr7WE_ck3X2gpiSZ3ZU_lnvDNkOCHC5wwvVVAVvRB98q3n8uom1eKNF3CpUfHiEWMtkddYvdPwUP0M-uscULR8n_7thFw0CddaTeMUZLV3qexFfc9GqUToEd_Y6irfEmzDFr7s8bKYktv1cshu21aGPamj7wpJSouKTRKMahZbDDnXCa66H2bV92jaUPPGt-DumGpS9Sq-TK230Yyrqshj6r8NdZKIoGp4hyea4R-2STDS3DkDe-LyRStCZiSCuyDiGSHyf9T7sO3MmRSiE-suWpXl1_2GsCo42uQHhuVBF2A7tju7LGtr0BAi1DVDh7dz5FeAER_3HRNZ75FnuBdtUNGsOfLXPm0ijgYwXi0yv0lQ_GsF7IIfTfbom2RiN1lBho5RszLtiM3N8ToKx2vLN5bP8gBbuhqGCoMI=w3420-h1808",
-    title: "Pain is temporary but pride is forever.",
-    id: 3,
-  },
-  {
-    url: "https://lh3.googleusercontent.com/fife/ALs6j_HQjYEAQKXT0jbN0TnMwcVNQMTmAuX1DI5P46zQA5M6Fl5G6eBQGXIuccHpQoEINCkmsj4uK_bUKh36rMfenbTGB-IrjT-SG9PapxxPWW_reaawfyLpbtROygh_5yuEKFUMR-6XBJmB7YXSPkE7X4Q_QOxTHEJvv3r-9022e3WXM11TN71mfNjLhndKVHqMzEkuDAxYvrT3-QIYyL3BTkQfdDv6NVsYTz8AP8pum6jqd_bxDXzm581Qq3ZjtYlbke7Vvak9FmuZEZgZtjqFcsJI4RpJoYk17AKXWZUwWTnDD57kvAgFkMvSd7Y3PXs3aKXq5XxhbuiYcJQLreAVCn1P842IjLn00WXO01YLeJr8OKEDcHniJFq9aY0GReN-POLoQ7y7uJPx1dr55y4euQU6aIyaoL8_b3w-UzALLHf3bHJ8LcHEJVqml5qsA_4ZN518GO1WelMVhv3ZPJOlYULacy4PklIt2-w1emJNKlrpGG40AB7TgwmVtnwytop7dHbUur2Ql2f5HfkLvnpIlhsjV3c65e950iV6Im9oFRF98w0wAasPqMJ0mSpui3vqD2aKgjpuSJH383qKkZFSoCIbCkiEC8DnhIL8Yd74r0-LcAXM1gordwMnUIH95co14mIwS-_UEMWRPAFair23KwoUorMBEuFDTctPfGAmno7pDl-LeCZS3vxsWnCJNcHF8r_WLT7gllnxrbbkkh8Z1jNR6udUmw0FUajonyL_1hevwUO7KnOJSKQoVg7m1sulPh3IpRwUNV3vkiEyozcF_bLVUjC19m_-o9lYisQ-turgqEXFbsgkUKXEGsd3mXAmAClDUB49hbNnkY_EIUeENdaj-rOSe6THiYCezb7ko7k0r67wfaQmNToIzynhUBEgRBMcIxd_hs0P9tu00cT4l5vaZ7Ef3bwv-YMgm4AkHWqL22KXOs0RqgIWKE517Q-P91m-YwkJzZMRi3gKTOHdzT0q-EQRgKp_3TuJdvVBE7fu4zAAakDL6_uYKK1OdtisCBDAasuVpSNvmJV0WxeNg7rijuKQ1sJl1Y3VCC_67pqWDYtELDnxMWj8jervhQgVhPZcwJ8fhDves7zfiTifEEHKZDKgKILTxaxin1hT4kjxUUa0lwRzGFZtRdUThiAG_8WCeV88izh9ux8a7csVNEsNLn-7cTI-nd7djZGm0_WFIZu8ft7A7IrjfJ1gHJVwGfIzumUDbfNI1Jh5aC27WkbCJy86AUnjf6TRctIKZimktHIfV35gcdwx2hFolycDY5PrtNnk8sY3fuedYGIfFHeoPKv9-z_d1dMG6ex3OCMELWj6vJgA7NgyNlNfpDgklKF4Dns5STcn04-wxLC73QCms07g7qSWennYdhTszndlPJlFbN0dIKh9r8DOq2qsLKq0kogRD9x1wVLYlQWRcdGfyWU7D5XqFhWUcZgqGWKW7T_rmoykO_OU2q0BDSnAxweA2c9K8gG4gmNmIjNjxD9v3SkbbxRoLNus5SzFE0-wM7R95xcRlXGXLUKwpVqRqmVVtQ9nCgs_PiiJvxLzchxyF-xFLcj9dootQQ9DSXPq0HRafIQKmQq-NQ6UImySheS9Gzz-0y_Dd5Hu0UL0tA=w3420-h1808",
-    title: "The body achieves what the mind believes.",
-    id: 4,
-  },
-  {
-    url: "https://lh3.googleusercontent.com/fife/ALs6j_EbxDYsgXOQJ_pVnj9LE-KFuZODPybqjQyuBHQTmUx4Pw2RsyyoCKGp92u7z_dh3sAuicnIUaYvZq3nIfJFMAIuETEA3aBP2RvpS6165RkwRwdlG_0pP5XW4SPIIZ0GJ4F-p__blXLrEWygAzYdH4cnHjCVxz00teW-0-d9JtF0A0yBEvbpkSfvMNWPv_1l8ZRE8mX64727FkPkD7-xLyHozoeq_Vk4oFhOUoQ4GG9rfn1fcdvHNWntAtUJbSDIOM0Uak-id6LrlxaAKId5LwYmFhsSi79_dMqP8Uvgnkvv2csxb6sxPTCXybrTHsvVUfXRBJiEoFb5gQkoFsaCqm2EClk5zutzlG2uS_dECdZ56-wm6gMhn1gy69EwO6SCqcXZP9vY2Z9pwXI5N9jzppjuMJhK5I3Xp1DSD74eATZY0m5F6YrqYr7tmeQ4C1acvbk8VvTB0_1u_0CDVx248xVZEaIL8aCdAAi7Uu5rkaEibFM8UOgTQ8hdNHCALpQfkVkCNAiIIvc1zke1jO-xFCEShuqvVsU7NeZQHn1ysRj9cqSU7th77wxXYQ_6FKnsEg5QRYI90sMMZ31gR3VRtkF1ecAOsXiAfL3ODvkQcuzn9Cg0VBNtvH-CKEkcIqIL7fTp51NwBuSFSZYDltIso430wooePPvYzWo5mGvbecDjpGm96PNtFM7C6KP2pq31vaP7vNPfTS6h2vwRFIokLkbcYRLBTW8FzdCegyulda2OAQNfzXF8i7hgOLqzgcENrF4etyFqZNtjQub-um6HnlKNYm6CLed4MHLGd3tHNO7VRh-VO3aGyO1rGmwcP4bR9GbWizR30Z1bc79nJVHEWsK5v4RJOf1qoqx-ZUGkKx388ESim0i1Tg33iYxjeuXqRhMvE8L3W3Wn33Tue5bEmUiXAZV1RAOBWg0gwn3WUZPMB2gfjPK07AnL7E12ZGfRrN7-9hlHxXAz7rl6RMDdOQyMSUeZtY7i1jxpEoHKFOC0o9nohsbPwYImvJ9xhUPzo3ToECsJFO7zlw_K9YMBQqyrClBGoGAUhblg4kvYubGectGJcAlzBVEW8ojDgbu7hx4G1MRe4i7VBW-DSKxXCO653YNPJKhQJSUT8RTNLzBIuoj3bTy3ZDpeJDl0WBLLW4io1aSc5jWLI6Zxxjvgv6TjhuDeBKY6iBGHc_6ubOgP-k-bPR2I9ZYQ6U-FQ0NS3oqc7uI-c59M74G8LGFl5sikvWZnITtWm0T0StL0CofR8KKjpZuRTSMMyLJ5o9gu5Vj_XK3Xe9KsAXYxyr1k9yY-muWLicfYGXFBvGmUIPQ8lqO-WRt9v8WwcnG6Xd3Ej8DGWtEl6dzcyH20hz1F7FgHuB5Ns1rlV2z6WhayYDd3EJWcVYUg3uo6dmVBzEvK489KHQJSucB-OP_4RnBy6CEpaLuaMH8H4z3eIMAq-_7qx9J_s-9APFFFypKQiN8x_wV0dGCQcib6fBVrF9tQ40uRPXKuX08fgHA3MZE0Li6HgpG_K9a5-bEYE2cC5LKSLD35ZtoS9O3TpXVyaBjHfwOzncilcs4wGQugAojHZeR5jf4_hAf8BqF831W8klWb1EW7QaUHp_aZXO53T3TnDg=w3420-h1808",
-    title: "Embrace the journey, not just the destination.",
-    id: 5,
-  },
-  {
-    url: "https://lh3.googleusercontent.com/fife/ALs6j_HyM7U-TDeMPxliOmXJayG7rv-WKU9q-Bi5eDDd-aa4HydQjv4NkRlieVYCsrRbEIIMcdexzb_y7Z_O_pFvEvV4nZ9rux0ShxTp8iMwX42kYke6q-BdsRZuVHwEuCc5G31O2VHtBoOPVQz94S2znvBh5KSpdjf7SbwPl_H8971ZKij0HW4fuaTxioWkyJ3IEnbVH5yC2sszR_7F0HhaQ779e3q-8wnDqbREsecdQ0SnBxrS9_01v6-LDFvrYQ3PzBjgS9fEPBqRVrM0pQqZOfQV53K67REs4D_0f_B4cWi7YcJDniE-Pl_ANzY0lH-kpgfjm7caRe1E8M1Xb9k5IbZ857sxcEUCG7tf_EpAhpf6TyU0QKwZgZ2CyGzhUOIa0XDnNuME4kaw80BRrdw7H1orglDDHnBq6wnSUOTqxDH9h6Or-jAUAGW4xAsruddgSp0vzLOorfxR2TDmO4Adq3XGDkdLHsTczjQho7mXd4xP4xoVPoIoCMRhl7BgTjgDAq8sutS6CeK4iYw9OG0TXzL22pcBchVO8D5nUGAonh6XwlRQU5iwqyRba2TgM3ZWV-6eg-xkVE13flQody3G-oighMkPptp5mmSdcwHQ1bH2gUupV4BVHsjKtNVON3kGXqRfYZn6yJmSv3-E6ZhEUZAWfzDdR6P4U6JHABGOboYSrha2mQLWATVUH_H50IwPYsiliEuZkXFLWsCH0svwtgRWTIeFOOMqZA3aK6X990GOg0BsfNGAeQotuWxlvioVakj3QuDZn7F2KDMmMRbw9JJLFugGHSQryM3Wq3FAb5US3E4EL3wwt5EOU7UnFURGFr9gKnQ2lA3pAZqxL2OoNLTcah6FwsB-BXuvwX-vOICgG_QGXLZvZZjw3pNBD7xv93xEFQgB1hn-daE6-sX7eBS6AgFx4obCqj8adi7BOQZDPQR3XO7bhPgLCCjLjcVvGvw9GW_AinSJahA5jVDozI4-ZACukEM1_hwJtiCIAKTdK1vgTP8CNH0Sr-FGgsp3Z8tmZLvJuCsKp8eRyJIxP-GrqafBupstla9sdw1aFL13bXxuj1OALpikblDuElDzayf_37xE-Un2bUVnjAihvb1DvM5L1RK4dtg8uXyM7JzI1W1FnV_PFEbluIuNOz2gYStXPN115ai2hASRNlgDrVftd3NG4DqCt0AXvwPtFNEMmcHpPzZY_vpJFkUTSt2aWRVX-3kJ89BkJKHnQVdiIhWyaf2uhDJDPW77_Oao_17ulXvRvB_h4A6lEboW9enA_v6k3UhC3FHjNxJjwR1wuXvr9QxeErYVK5MAqHtTzOUf9zb7KbQB8-bGgAhXq1D_XvbLPlRz2U0VnQwP5f4Il1obNgNGeFdSBt4PTo3UAmlHu-Prc8Y_eTHqvBhcEYgOaUaSbi99RYrDDNzILNJ4TgPwyhlDI9LGUIGpvV3JDQ9GuUAVwb9-zQdtUClFGgRPloxfUfOi59fyR77v8mEwXHJ-CKHdV22w6Tws_BIVu0E2jvTacQbmIqEhbWpI2Wpo5qn3v6Bit56c3xpeaR4tk0eh43LnKtJH-ZD-eyGxVcCuNnXv_qPYoArN_O2l6jIxLKDrVq9KVw_-9PtqXHdZuA=w3420-h1808",
-    title: "The only way to cross the finish line is to start.",
-    id: 6,
-  },
+    {
+        url: '/dpxc-landing-team-1.jpg',
+        title: 'A TEAM.',
+        id: 1,
+    },
+    {
+        url: '/dpxc-landing-runners-1.jpg',
+        title: 'RUNNERS.',
+        id: 2,
+    },
+    {
+        url: '/dpxc-landing-dedicated-1.jpg',
+        title: 'DEDICATED.',
+        id: 3,
+    },
+    {
+        url: '/dpxc-landing-united-1.jpg',
+        title: 'UNITED.',
+        id: 4,
+    },
+    {
+        url: '/dpxc-landing-champions-1.jpg',
+        title: 'CHAMPIONS.',
+        id: 5,
+    },
+    {
+        url: '/dpxc-landing-strong-1.jpg',
+        title: 'STRONG.',
+        id: 6,
+    },
+    {
+        url: '/dpxc-landing-team-2.jpg',
+        title: 'A TEAM.',
+        id: 7,
+    },
+    {
+        url: '/dpxc-landing-runners-2.jpg',
+        title: 'RUNNERS.',
+        id: 8,
+    },
+    {
+        url: '/dpxc-landing-dedicated-2.jpg',
+        title: 'DEDICATED.',
+        id: 9,
+    },
+    {
+        url: '/dpxc-landing-united-2.jpg',
+        title: 'UNITED.',
+        id: 10,
+    },
+    {
+        url: '/dpxc-landing-champions-2.jpg',
+        title: 'CHAMPIONS.',
+        id: 11,
+    },
+    {
+        url: '/dpxc-landing-strong-2.jpg',
+        title: 'STRONG.',
+        id: 12,
+    },
 ];
+
+const AutoscrollCarousel = () => {
+    const pluginForward = useRef(
+        AutoScroll({
+            speed: 1,
+            direction: 'forward',
+            breakpoints: { '(min-width: 600px)': { speed: 1.5 }, '(min-width: 1200px)': { speed: 1.75 } },
+        })
+    );
+    const pluginBackward = useRef(
+        AutoScroll({
+            speed: 1,
+            direction: 'backward',
+            breakpoints: { '(min-width: 600px)': { speed: 1.5 }, '(min-width: 1200px)': { speed: 1.75 } },
+        })
+    );
+    const screenWidth = useScreenWidth();
+    const [showAnimation, setShowAnimation] = useState(true);
+
+    return (
+        <div>
+            <motion.h2
+                variants={itemVariants(1)}
+                className={`${delaGothic.className} text-3xl text-center font-bold text-secondary tracking-wide [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
+            >
+                WE ARE...
+            </motion.h2>
+            <motion.div
+                className='w-screen'
+                variants={{ closed: { y: 50, opacity: 0 }, open: { y: 0, opacity: 1 } }}
+                initial='closed'
+                animate='open'
+                transition={{ duration: 0.5, delay: 1.5 }}
+            >
+                <Carousel plugins={[pluginForward.current]} className='w-screen' opts={{ loop: true, watchDrag: false, align: 'start' }}>
+                    <div className='w-full absolute h-full'>
+                        <div className='absolute left-0 w-[20%] tablet:w-[25%] taptop:w-[20%] h-full bg-gradient-to-r from-background via-background to-background/0 z-20'></div>
+                        <div className='absolute right-0 w-[20%] tablet:w-[25%] taptop:w-[20%] h-full bg-gradient-to-l from-background via-background to-background/0 z-20'></div>
+                    </div>
+                    <CarouselContent className='py-5'>
+                        {(screenWidth > 600 ? cards : cards.slice(0, Math.floor(cards.length / 2))).map((card, index) => (
+                            <CarouselItem
+                                key={card.id}
+                                className={`max-h-[150px] max-w-[125px] tablet:max-h-[225px] tablet:max-w-[185px] taptop:max-h-[280px] taptop:max-w-[225px] laptop:max-h-[310px] laptop:max-w-[260px] desktop:max-h-[350px] desktop:max-w-[300px] pl-0 ml-6 py-2`}
+                            >
+                                <Card card={card} />
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                </Carousel>
+                {screenWidth < 600 && (
+                    <Carousel plugins={[pluginBackward.current]} className='w-screen flex tablet:hidden' opts={{ loop: true, watchDrag: false, align: 'start' }}>
+                        <div className='w-full absolute h-full'>
+                            <div className='absolute left-0 w-[15%] tablet:w-[25%] taptop:w-[20%] h-full bg-gradient-to-r from-background via-background to-background/0 z-20'></div>
+                            <div className='absolute right-0 w-[15%] tablet:w-[25%] taptop:w-[20%] h-full bg-gradient-to-l from-background via-background to-background/0 z-20'></div>
+                        </div>
+                        <CarouselContent className='py-5'>
+                            {cards.slice(Math.floor(cards.length / 2), cards.length).map((card, index) => (
+                                <CarouselItem
+                                    key={card.id}
+                                    className={`max-h-[150px] max-w-[125px] tablet:max-h-[225px] tablet:max-w-[185px] taptop:max-h-[280px] taptop:max-w-[225px] laptop:max-h-[310px] laptop:max-w-[260px] desktop:max-h-[350px] desktop:max-w-[300px] pl-0 ml-6 py-2`}
+                                >
+                                    <Card card={card} />
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                    </Carousel>
+                )}
+            </motion.div>
+        </div>
+    );
+};
+
+const Card = ({ card }: { card: CardType }) => {
+    return (
+        <div className='relative h-[150px] w-[125px] tablet:h-[225px] tablet:w-[185px] taptop:h-[280px] taptop:w-[225px] laptop:h-[310px] laptop:w-[260px] desktop:h-[350px] desktop:w-[300px] overflow-hidden bg-neutral-200 rounded-lg shadow-[5px_5px_0px_0px_rgba(255,213,0)] border-2 rotate-2 border-secondary'>
+            <div
+                style={{
+                    backgroundImage: `url(${card.url})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}
+                className='absolute inset-0 z-0'
+            ></div>
+            <div className='absolute inset-0 z-10 grid place-content-center h-full bg-gradient-to-br from-black/10 to-black/20'>
+                <p className={`${delaGothic.className} p-8 text-sm tablet:text-xl taptop:text-2xl desktop:text-3xl font-black uppercase text-white select-none text-nowrap`}>
+                    {card.title}
+                </p>
+            </div>
+            <div className='absolute inset-0 bg-secondary opacity-20' />
+        </div>
+    );
+};
+
+export default AutoscrollCarousel;

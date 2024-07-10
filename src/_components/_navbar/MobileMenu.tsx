@@ -32,7 +32,6 @@ const MobileMenu = ({ isOpen, setIsOpen, links }: { isOpen: boolean; setIsOpen: 
             <div ref={scope}>
                 <MenuItems links={links} isOpen={isOpen} />
             </div>
-            <MenuToggle toggle={() => setIsOpen((prev) => !prev)} isOpen={isOpen} color={isOpen ? '#00295E' : '#FFD500'} />
         </>
     );
 };

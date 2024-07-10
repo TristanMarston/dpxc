@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={`${fredoka.className} overflow-x-hidden min-h-screen min-w-screen p-0 mx-5 bg-gradient-to-t from-background-lightest to-background`}>{children}</body>
+            <body className={`${fredoka.className} overflow-x-hidden h-screen w-screen p-0 bg-background`}>{children}</body>
         </html>
     );
 }

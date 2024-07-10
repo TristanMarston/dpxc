@@ -6,6 +6,7 @@ import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import { NavLink } from '@/app/context';
 import MenuItemsLaptop from './MenuItemsLaptop';
+import MenuToggle from './MenuToggle';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -40,19 +41,21 @@ const Navbar = () => {
     ];
 
     return (
-        <motion.nav
-            animate={isOpen ? 'open' : 'closed'}
-            className='w-full sticky top-5 bg-background-light h-[59px] rounded-full text-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)] pl-2 pr-3 flex items-center justify-between'
-        >
-            <a href='/'>
-                <Image src={'/dpxclogo.png'} alt='logo' width={60} height={60} />
-            </a>
-            <div className='flex gap-2 items-center laptop:hidden'>
-                {/* <Search strokeWidth={2.5} /> */}
-                <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} links={links} />
-            </div>
-            <MenuItemsLaptop links={links} />
-        </motion.nav>
+        <>
+            <section className='w-screen fixed top-0 backdrop-blur-sm px-5 taptop:px-7 z-[60]'>
+                <motion.nav
+                    animate={isOpen ? 'open' : 'closed'}
+                    className='w-full sticky mt-5 bg-background-light h-[60px] rounded-full text-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)] pl-2 pr-3 flex items-center justify-between'
+                >
+                    <a href='/'>
+                        <Image src={'/dpxclogo.png'} alt='logo' width={60} height={60} />
+                    </a>
+                    <MenuToggle toggle={() => setIsOpen((prev) => !prev)} isOpen={isOpen} color={isOpen ? '#00295E' : '#FFD500'} />
+                    <MenuItemsLaptop links={links} />
+                </motion.nav>
+            </section>
+            <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} links={links} />
+        </>
     );
 };
 
