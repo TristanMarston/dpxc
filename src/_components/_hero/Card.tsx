@@ -24,4 +24,6 @@ const Card = memo(({ card }: { card: CardType }) => {
     );
 });
 
+Card.displayName = 'Card';
+
 export default Card;
