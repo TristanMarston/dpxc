@@ -1,8 +1,6 @@
 import { itemVariants } from '@/app/context';
 import { motion } from 'framer-motion';
-import { Dela_Gothic_One } from 'next/font/google';
-
-const delaGothic = Dela_Gothic_One({ weight: '400', subsets: ['latin'] });
+import { delaGothic } from '@/app/context';
 
 const LinesAnimation = ({ text, offset }: { text: string; offset: number }) => {
     return (

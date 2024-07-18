@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Unbounded } from 'next/font/google';
 import './globals.css';
 
-const fredoka = Unbounded({ subsets: ['latin'] });
+const unbounded = Unbounded({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'DPXC',
@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={`${fredoka.className} overflow-x-hidden h-screen w-screen p-0 bg-background`}>{children}</body>
+            <body className={`${unbounded.className} overflow-x-hidden h-screen w-screen p-0 bg-background`}>{children}</body>
         </html>
     );
 }

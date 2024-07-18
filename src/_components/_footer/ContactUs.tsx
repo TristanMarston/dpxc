@@ -10,7 +10,7 @@ const ContactUs = () => {
             </Link> */}
             <div className='flex flex-col gap-5 mb-5'>
                 <h1 className={`text-xl font-bold text-center`}>Have any questions?</h1>
-                <h4 className={`text-sm text-center flex flex-col gap-y-3`}>
+                <span className={`text-sm text-center flex flex-col gap-y-3`}>
                     <p className='block tablet:hidden'>
                         Contact us below, or email{' '}
                         <a className='underline' href='mailto:dpxc@gmail.com'>
@@ -24,7 +24,7 @@ const ContactUs = () => {
                         </a>
                     </p>
                     <p>Our team will try our best to respond within 24 hours. If you do not receive a reply promptly, please send another message or email.</p>
-                </h4>
+                </span>
             </div>
         </div>
     );

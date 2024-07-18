@@ -1,4 +1,9 @@
+'use client';
+
+import { Dela_Gothic_One } from 'next/font/google';
 import { useEffect, useState } from 'react';
+
+export const delaGothic = Dela_Gothic_One({ weight: '400', subsets: ['latin'], display: 'swap' });
 
 export type NavLink = {
     title: string;
@@ -6,6 +11,12 @@ export type NavLink = {
     isDropdown: boolean;
     dropdownOptions?: NavLink[];
     description?: string;
+};
+
+export type CardType = {
+    url: string;
+    title: string;
+    id: number;
 };
 
 export const generateID = (length: number) => {
@@ -16,8 +27,10 @@ export const generateID = (length: number) => {
 };
 
 export const itemVariants = (delay: number) => ({
-    hidden: { scale: 0.3, opacity: 0 },
+    hidden: { scale: 0.6, opacity: 0 },
     visible: { scale: 1, opacity: 1, transition: { type: 'spring', bounce: 0.25, delay: delay } },
+    // hidden: { scale: 1, opacity: 1 },
+    // visible: { scale: 1, opacity: 1 },
 });
 
 export const useScreenWidth = () => {

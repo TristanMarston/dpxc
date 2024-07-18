@@ -10,6 +10,7 @@ const MenuToggle = ({ toggle, isOpen, color }: { toggle: () => void; isOpen: boo
         className={`${
             isOpen ? 'bg-secondary shadow-[0_4px_30px_rgba(0,0,0,.7)] overflow-y-hidden ' : 'bg-transparent shadow-none '
         } z-[60] p-3 rounded-full grid place-items-center transition-colors laptop:hidden sticky`}
+        aria-label='Mobile Menu Button'
     >
         <svg width='21' height='21' viewBox='0 0 21 20'>
             <Path

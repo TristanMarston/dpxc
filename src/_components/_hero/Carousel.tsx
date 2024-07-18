@@ -2,18 +2,12 @@
 
 import AutoScroll from 'embla-carousel-auto-scroll';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { useRef, useState } from 'react';
-import { Dela_Gothic_One } from 'next/font/google';
-import { motion, stagger } from 'framer-motion';
-import { itemVariants, useScreenWidth } from '@/app/context';
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { itemVariants, useScreenWidth, CardType, delaGothic } from '@/app/context';
+import dynamic from 'next/dynamic';
 
-const delaGothic = Dela_Gothic_One({ weight: '400', subsets: ['latin'] });
-
-type CardType = {
-    url: string;
-    title: string;
-    id: number;
-};
+const DynamicCard = dynamic(() => import('./Card'), { ssr: false });
 
 const cards: CardType[] = [
     {
@@ -94,7 +88,6 @@ const AutoscrollCarousel = () => {
         })
     );
     const screenWidth = useScreenWidth();
-    const [showAnimation, setShowAnimation] = useState(true);
 
     return (
         <div>
@@ -122,7 +115,7 @@ const AutoscrollCarousel = () => {
                                 key={card.id}
                                 className={`max-h-[150px] max-w-[125px] tablet:max-h-[225px] tablet:max-w-[185px] taptop:max-h-[280px] taptop:max-w-[225px] laptop:max-h-[310px] laptop:max-w-[260px] desktop:max-h-[350px] desktop:max-w-[300px] pl-0 ml-6 py-2`}
                             >
-                                <Card card={card} />
+                                <DynamicCard card={card} />
                             </CarouselItem>
                         ))}
                     </CarouselContent>
@@ -139,34 +132,13 @@ const AutoscrollCarousel = () => {
                                     key={card.id}
                                     className={`max-h-[150px] max-w-[125px] tablet:max-h-[225px] tablet:max-w-[185px] taptop:max-h-[280px] taptop:max-w-[225px] laptop:max-h-[310px] laptop:max-w-[260px] desktop:max-h-[350px] desktop:max-w-[300px] pl-0 ml-6 py-2`}
                                 >
-                                    <Card card={card} />
+                                    <DynamicCard card={card} />
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
                     </Carousel>
                 )}
             </motion.div>
-        </div>
-    );
-};
-
-const Card = ({ card }: { card: CardType }) => {
-    return (
-        <div className='relative h-[150px] w-[125px] tablet:h-[225px] tablet:w-[185px] taptop:h-[280px] taptop:w-[225px] laptop:h-[310px] laptop:w-[260px] desktop:h-[350px] desktop:w-[300px] overflow-hidden bg-neutral-200 rounded-lg shadow-[5px_5px_0px_0px_rgba(255,213,0)] border-2 rotate-2 border-secondary'>
-            <div
-                style={{
-                    backgroundImage: `url(${card.url})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
-                className='absolute inset-0 z-0'
-            ></div>
-            <div className='absolute inset-0 z-10 grid place-content-center h-full bg-gradient-to-br from-black/10 to-black/20'>
-                <p className={`${delaGothic.className} p-8 text-sm tablet:text-xl taptop:text-2xl desktop:text-3xl font-black uppercase text-white select-none text-nowrap`}>
-                    {card.title}
-                </p>
-            </div>
-            <div className='absolute inset-0 bg-secondary opacity-20' />
         </div>
     );
 };

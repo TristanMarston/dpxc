@@ -7,6 +7,7 @@ import MobileMenu from './MobileMenu';
 import { NavLink } from '@/app/context';
 import MenuItemsLaptop from './MenuItemsLaptop';
 import MenuToggle from './MenuToggle';
+import Link from 'next/link';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -47,9 +48,10 @@ const Navbar = () => {
                     animate={isOpen ? 'open' : 'closed'}
                     className='w-full sticky mt-5 bg-background-light h-[60px] rounded-full text-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)] pl-2 pr-3 flex items-center justify-between'
                 >
-                    <a href='/'>
+                    <Link href='/' className='max-w-[60px] w-full h-full relative'>
                         <Image src={'/dpxclogo.png'} alt='logo' width={60} height={60} />
-                    </a>
+                        {/* <Image src={'/dpxclogo.png'} alt='logo' quality={100} className='w-full h-auto object-contain' fill priority sizes='100%' /> */}
+                    </Link>
                     <MenuToggle toggle={() => setIsOpen((prev) => !prev)} isOpen={isOpen} color={isOpen ? '#00295E' : '#FFD500'} />
                     <MenuItemsLaptop links={links} />
                 </motion.nav>

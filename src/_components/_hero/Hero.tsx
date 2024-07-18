@@ -1,25 +1,15 @@
 'use client';
 
 import { NavLink, itemVariants } from '@/app/context';
-import { motion } from 'framer-motion';
-import { Dela_Gothic_One } from 'next/font/google';
 import Link from 'next/link';
 import LinesAnimation from './LinesAnimation';
 import AutoscrollCarousel from './Carousel';
+import { delaGothic } from '@/app/context';
+import dynamic from 'next/dynamic';
 
-const delaGothic = Dela_Gothic_One({ weight: '400', subsets: ['latin'] });
+const MotionDiv = dynamic(() => import('framer-motion').then((mod) => mod.motion.div), { ssr: false });
 
 const Hero = () => {
-    const containerVariants = {
-        hidden: { opacity: 1 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
-    };
-
     const buttons: NavLink[] = [
         { title: 'Our Team', href: '', isDropdown: false },
         { title: 'Support Us', href: '', isDropdown: false },
@@ -27,41 +17,22 @@ const Hero = () => {
 
     return (
         <>
-            <motion.div variants={containerVariants} initial='hidden' animate='visible' className='flex flex-col relative mt-28 gap-16'>
+            <MotionDiv initial='hidden' animate='visible' transition={{ staggerChildren: 0.1 }} className='flex flex-col relative mt-28 gap-16'>
                 <div className='flex flex-col gap-5 w-full items-center'>
                     <span className='flex justify-center w-full'>
                         <span className='w-[275px] tiny:w-[340px] mobile:w-[400px] tablet:w-[575px] taptop:w-[690px] laptop:w-[850px]'>
-                            {/* <motion.div className='h-1 bg-[#00214B] rounded-full w-full relative top-0 left-0 -z-[1]'>
-                            <motion.div
-                                className='h-1 bg-secondary rounded-full w-full'
-                                initial={{ width: '0' }}
-                                animate={{ width: '100%' }}
-                                transition={{ duration: 0.5 }}
-                            ></motion.div>
-                        </motion.div>
-                        <motion.p variants={itemVariants(0)} className='text-nowrap text-secondary text-center'>
-                            THIS IS
-                        </motion.p>
-                        <motion.div className='h-1 bg-secondary rounded-full w-full relative top-0 left-0 -z-[1]'>
-                            <motion.div
-                                className='h-1 bg-[#00214B] rounded-full w-full'
-                                initial={{ width: '100%' }}
-                                animate={{ width: '0' }}
-                                transition={{ duration: 0.5 }}
-                            ></motion.div>
-                        </motion.div> */}
                             <LinesAnimation text='THIS IS' offset={0} />
                         </span>
                     </span>
-                    <motion.div
+                    <MotionDiv
                         variants={itemVariants(0.5)}
                         className={`${delaGothic.className} text-2xl text-nowrap tiny:text-[26px] min-[390px]:text-3xl mobile:text-4xl tablet:text-5xl taptop:text-6xl laptop:text-7xl text-center font-bold text-secondary tracking-wide [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
                     >
                         DOS PUEBLOS
                         <br />
                         CROSS COUNTRY
-                    </motion.div>
-                    <motion.div variants={itemVariants(0.6)} className='flex gap-4 w-full justify-center'>
+                    </MotionDiv>
+                    <MotionDiv variants={itemVariants(0.6)} className='flex gap-4 w-full justify-center'>
                         {buttons.map(({ title, href }) => (
                             <Link
                                 href={href || '#'}
@@ -71,11 +42,11 @@ const Hero = () => {
                                 {title}
                             </Link>
                         ))}
-                    </motion.div>
+                    </MotionDiv>
                 </div>
 
                 <AutoscrollCarousel />
-            </motion.div>
+            </MotionDiv>
         </>
     );
 };

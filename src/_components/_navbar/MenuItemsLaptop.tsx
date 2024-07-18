@@ -8,9 +8,7 @@ const MenuItemDropdown = ({ title, href, dropdownOptions }: { title: string; hre
     return dropdownOptions !== undefined ? (
         <NavigationMenuItem>
             <NavigationMenuTrigger className=''>
-                <Link href={href || '#'}>
-                    <NavigationMenuLink className={`rounded-full w-full text-sm desktop:text-base font-bold`}>{title}</NavigationMenuLink>
-                </Link>
+                <span className={`rounded-full w-full text-sm desktop:text-base font-bold`}>{title}</span>
             </NavigationMenuTrigger>
 
             <NavigationMenuContent className='flex flex-col w-[360px] items-start bg-background-light border-2 border-background-light outline-none shadow-[0_4px_30px_rgba(0,0,0,.4)]'>
@@ -40,22 +38,14 @@ const MenuItem = ({ title, href }: { title: string; href: string }) => {
 };
 
 const MenuItemsLaptop = ({ links }: { links: NavLink[] }) => {
-    const [loaded, setLoaded] = useState(false);
-
-    useEffect(() => {
-        setLoaded(true);
-    }, []);
-
-    return loaded ? (
+    return (
         <NavigationMenu className='hidden laptop:block mr-4'>
             <NavigationMenuList className='flex gap-6'>
-                <div className='flex gap-6 justify-end'>
-                    {links
-                        .filter((link) => link.isDropdown)
-                        .map(({ title, href, dropdownOptions }, index) => (
-                            <MenuItemDropdown title={title} href={href} dropdownOptions={dropdownOptions} key={title + index} />
-                        ))}
-                </div>
+                {links
+                    .filter((link) => link.isDropdown)
+                    .map(({ title, href, dropdownOptions }, index) => (
+                        <MenuItemDropdown title={title} href={href} dropdownOptions={dropdownOptions} key={title + index} />
+                    ))}
                 {links
                     .filter((link) => !link.isDropdown)
                     .map(({ title, href }, index) => (
@@ -63,12 +53,6 @@ const MenuItemsLaptop = ({ links }: { links: NavLink[] }) => {
                     ))}
             </NavigationMenuList>
         </NavigationMenu>
-    ) : (
-        <div className='w-full gap-2 justify-end hidden laptop:flex mr-4'>
-            {links.map(() => (
-                <Skeleton className='w-[8%] h-[20px] rounded-full' key={generateID(5)} />
-            ))}
-        </div>
     );
 };
 
