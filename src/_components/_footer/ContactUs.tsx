@@ -55,7 +55,10 @@ const ContactUs = () => {
                     }
                 })
                 .catch((err) => {
-                    displayToast(false, "Couldn't send message.");
+                    toast.error('Message failed to send.', {
+                        id: toastID,
+                        duration: 4000,
+                    });
                 });
         } else
             displayToast(
