@@ -14,6 +14,7 @@ const config = {
         },
         screens: {
             tiny: '350px',
+            phone: '400px',
             mobile: '450px',
             tablet: '600px',
             taptop: '800px',
@@ -43,6 +44,7 @@ const config = {
                 'background-lightest': '#0048A4',
 
                 secondary: '#FFD500',
+                'secondary-hover': '#FFE563',
                 'secondary-light': '#FFF6C7',
             },
         },
