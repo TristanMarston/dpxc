@@ -20,6 +20,14 @@ export type CardType = {
     id: number;
 };
 
+export interface MessageForm {
+    firstName: string;
+    lastName: string;
+    email: string;
+    subject: string;
+    message: string;
+}
+
 export const generateID = (length: number) => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let result = '';
