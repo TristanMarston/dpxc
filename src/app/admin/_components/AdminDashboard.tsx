@@ -86,7 +86,7 @@ const SearchBar = ({ collections }: { collections: string[] }) => {
                     <div className='bg-background-lighter w-full py-1 pl-2 text-secondary font-bold tracking-wide'>DATABASES</div>
                     {collections.map((collection, index) => (
                         <div key={collection + index} className='px-2 py-2 w-full'>
-                            <Link href={`/${collection}`} className='rounded-lg hover:bg-background-lightest py-1 px-2 transition-colors capitalize'>
+                            <Link href={`/admin/collection/${collection}`} className='block w-full rounded-lg hover:bg-background-lightest py-1 px-2 transition-colors capitalize'>
                                 {collection}
                             </Link>
                         </div>

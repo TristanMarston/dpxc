@@ -1,20 +1,27 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
+
+const jwtSecret = process.env.JWT_SECRET!;
 
 export function middleware(request: NextRequest) {
-    const isAdmin = request.cookies.get('admin-auth')?.value === 'true';
+	const token = request.cookies.get('admin-auth')?.value;
 
-    if (request.nextUrl.pathname.startsWith('/admin') && request.nextUrl.pathname !== '/admin/login' && !isAdmin) {
-        return NextResponse.redirect(new URL('/admin/login', request.url));
-    }
-
-    if (request.nextUrl.pathname.startsWith('/admin') && request.nextUrl.pathname !== '/admin' && isAdmin) {
-        return NextResponse.redirect(new URL('/admin', request.url));
-    }
-
-    return NextResponse.next();
+	if (!token && !request.nextUrl.pathname.startsWith('/admin/login')) {
+		return NextResponse.redirect(new URL('/admin/login', request.url));
+	}
+	if (!request.nextUrl.pathname.startsWith('/admin/login')) {
+		try {
+			if (token) {
+				jwt.verify(token, jwtSecret);
+				return NextResponse.next();
+			}
+			return NextResponse.redirect(new URL('/admin/login', request.url));
+		} catch (err) {
+			return NextResponse.redirect(new URL('/admin/login', request.url));
+		}
+	}
 }
 
 export const config = {
-    matcher: ['/admin/:path*', '/login'],
+	matcher: '/admin/:path*',
 };
