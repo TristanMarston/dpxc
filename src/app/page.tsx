@@ -1,5 +1,6 @@
 import Footer from '@/_components/_footer/Footer';
 import Hero from '@/_components/_hero/Hero';
+import DPIPromo from '@/_components/_homepage/DPIPromo';
 import Navbar from '@/_components/_navbar/Navbar';
 import { Toaster } from 'react-hot-toast';
 
@@ -11,7 +12,8 @@ const page = () => {
                 <Navbar />
                 <Hero />
             </div>
-            <Footer />
+            <DPIPromo />
+            <Footer negativeSpacing={true} />
         </>
     );
 };

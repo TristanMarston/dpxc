@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 
-const LayeredWave = () => {
+const GoldLayeredWave = ({ negativeSpacing = false }) => {
     const svgRef = useRef<SVGSVGElement>(null);
 
     useEffect(() => {
@@ -31,7 +31,14 @@ const LayeredWave = () => {
     };
 
     return (
-        <svg className='w-screen mt-36' id='visual' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink' ref={svgRef} version='1.1'>
+        <svg
+            className={`w-screen ${negativeSpacing ? '-mt-36' : 'mt-36'}`}
+            id='visual'
+            xmlns='http://www.w3.org/2000/svg'
+            xmlnsXlink='http://www.w3.org/1999/xlink'
+            ref={svgRef}
+            version='1.1'
+        >
             <rect x='0' y='0' fill='#001E44'></rect>
 
             <path
@@ -62,4 +69,4 @@ const LayeredWave = () => {
     );
 };
 
-export default LayeredWave;
+export default GoldLayeredWave;

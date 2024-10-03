@@ -75,21 +75,9 @@ const ContactUs = () => {
 
     return (
         <div className='w-full text-center flex flex-col gap-1 text-background'>
-            <div className='flex flex-col gap-5 mb-5'>
+            <div className='flex flex-col gap-3 mb-5'>
                 <h1 className={`text-xl font-bold text-center`}>Have any questions?</h1>
-                <span className={`text-sm text-center flex flex-col gap-y-3`}>
-                    <p className='block tablet:hidden'>
-                        Contact us below, or email{' '}
-                        <a className='underline' href='mailto:dpxc@gmail.com'>
-                            dpxc@gmail.com
-                        </a>
-                    </p>
-                    <p className='hidden tablet:block'>
-                        Contact us at below, or email{' '}
-                        <a className='underline' href='mailto:dpxc@gmail.com'>
-                            dpxc@gmail.com
-                        </a>
-                    </p>
+                <span className='text-sm text-center'>
                     <p>Our team will try our best to respond within 24 hours. If you do not receive a reply promptly, please send another message or email.</p>
                 </span>
             </div>

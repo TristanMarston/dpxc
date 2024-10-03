@@ -42,6 +42,11 @@ export const itemVariants = (delay: number) => ({
     // visible: { scale: 1, opacity: 1 },
 });
 
+export const scrollVariants = (delay: number) => ({
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { ease: 'anticipate', duration: 2, delay: delay } },
+});
+
 export const displayToast = (success: boolean, message: string, className?: string) => {
     const settings: Partial<Pick<Toast, 'id' | 'icon' | 'duration' | 'ariaProps' | 'className' | 'style' | 'position' | 'iconTheme'>> = {
         duration: 20000,

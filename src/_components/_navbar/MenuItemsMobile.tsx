@@ -9,7 +9,16 @@ const HoverListItem = ({ title, href, className }: { title: string; href: string
 
     return (
         <li onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-            <Link href={href || '#'} className={`font-bold text-xl min-[320px]:text-2xl min-[400px]:text-3xl w-full flex justify-end`}>
+            <Link
+                href={href || '#'}
+                onClick={(e) => {
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }}
+                className={`font-bold text-xl min-[320px]:text-2xl min-[400px]:text-3xl w-full flex justify-end`}
+            >
                 <span className={`inline-block text-secondary text-right ${className}`}>
                     {title}
                     <motion.div className='h-1 bg-secondary rounded-full' initial={{ width: '0%' }} animate={{ width: isHovered ? '100%' : '0%' }} transition={{ duration: 0.2 }} />

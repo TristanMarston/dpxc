@@ -17,6 +17,7 @@ const config = {
             phone: '400px',
             mobile: '450px',
             tablet: '600px',
+            lablet: '700px',
             taptop: '800px',
             laptop: '1000px',
             desktop: '1200px',
@@ -36,6 +37,7 @@ const config = {
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
+                'spin-cw': 'spin-cw 0.2s linear infinite',
             },
             colors: {
                 background: '#001E44',
@@ -46,6 +48,9 @@ const config = {
                 secondary: '#FFD500',
                 'secondary-hover': '#FFE563',
                 'secondary-light': '#FFF6C7',
+            },
+            maxWidth: {
+                'max-content': '1280px',
             },
         },
     },
