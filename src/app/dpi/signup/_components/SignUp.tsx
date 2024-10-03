@@ -41,10 +41,12 @@ const SignUp = () => {
             </motion.h4>
             <motion.div variants={scrollVariants(0.7)} className='flex gap-2 w-full rounded-full bg-background-light mb-3 border-2 border-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)]'>
                 {['community', 'youth'].map((type) => (
-                    <DisplayChip view={type as View} selected={selected} setSelected={setSelected} />
+                    <DisplayChip key={type} view={type as View} selected={selected} setSelected={setSelected} />
                 ))}
             </motion.div>
-            <motion.div variants={scrollVariants(0.8)} className='w-full'>{selected === 'community' ? <CommunitySignUp /> : <YouthSignUp />}</motion.div>
+            <motion.div variants={scrollVariants(0.8)} className='w-full'>
+                {selected === 'community' ? <CommunitySignUp /> : <YouthSignUp />}
+            </motion.div>
         </motion.div>
     );
 };

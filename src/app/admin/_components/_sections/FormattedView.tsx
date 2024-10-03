@@ -73,7 +73,7 @@ const FormattedView = ({ collection }: { collection: string }) => {
     return (
         <div className='flex flex-col gap-3 w-full mt-3 mb-5'>
             {collectionData.map((obj, index) => (
-                <div>
+                <div key={index}>
                     <div
                         key={obj._id + index}
                         className={`w-full bg-background-light shadow-[0_4px_30px_rgba(0,0,0,.4)] relative h-fit p-4 group ${deleteSection ? 'rounded-t-2xl' : 'rounded-2xl'}`}
@@ -273,7 +273,7 @@ const NestedObject = ({ objKey, type, obj, object }: { objKey: string; type: any
                                   type[key].type !== 'object' && typeof type[key].type !== 'object' ? (
                                       <RegularObject key={key + index} objKey={key} type={type[key].type} obj={obj} />
                                   ) : (
-                                      <NestedObject objKey={key} type={type[key].type} obj={obj} object={undefined} />
+                                      <NestedObject key={key + index} objKey={key} type={type[key].type} obj={obj} object={undefined} />
                                   )
                               ))}
                 </div>

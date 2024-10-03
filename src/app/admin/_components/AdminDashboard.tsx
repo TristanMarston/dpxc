@@ -152,7 +152,7 @@ const SearchBar = ({
                                         {filteredResults
                                             .filter((collection) => collection.type === type)
                                             .map(({ name, type }, index) => (
-                                                <Link href={`/admin/${type}/${name.replaceAll(' ', '-')}`}>
+                                                <Link href={`/admin/${type}/${name.replaceAll(' ', '-')}`} key={name + index}>
                                                     <div key={name + index} className='px-2 w-full h-fit'>
                                                         <span className='block w-full rounded-lg hover:bg-background-lightest py-1 px-2 transition-colors lowercase'>{name}</span>
                                                     </div>

@@ -11,7 +11,7 @@ type ComponentProps = {
     collection: string;
 };
 
-const page = ({ params }: { params: { collection: string } }) => {
+const Page = ({ params }: { params: { collection: string } }) => {
     const customPage = useSearchParams().get('customPage');
 
     let DynamicComponent: React.ComponentType<ComponentProps> | null = null;
@@ -39,4 +39,4 @@ const page = ({ params }: { params: { collection: string } }) => {
     );
 };
 
-export default page;
+export default Page;

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-const page = () => {
+const Page = () => {
     const router = useRouter();
 
     useEffect(() => router.push('/dpi/community-sign-up'), []);
@@ -11,4 +11,4 @@ const page = () => {
     return <></>;
 };
 
-export default page;
+export default Page;
