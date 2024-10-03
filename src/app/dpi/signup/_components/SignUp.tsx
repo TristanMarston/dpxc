@@ -22,7 +22,6 @@ const SignUp = () => {
     }, [selected]);
 
     return (
-        <Suspense>
             <motion.div initial='hidden' animate='visible' className='mt-28 flex flex-col items-start w-full px-2 mobile:px-3 tablet:px-4 taptop:px-8 laptop:px-12'>
                 <motion.div
                     variants={scrollVariants(0)}
@@ -52,7 +51,6 @@ const SignUp = () => {
                     {selected === 'community' ? <CommunitySignUp /> : <YouthSignUp />}
                 </motion.div>
             </motion.div>
-        </Suspense>
     );
 };
 
