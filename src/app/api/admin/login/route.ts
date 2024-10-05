@@ -7,8 +7,6 @@ const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH!;
 const jwtSecret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
 export async function POST(request: Request) {
-    console.log(adminUsername);
-    console.log(jwtSecret);
     try {
         const { username, password } = await request.json();
 
@@ -25,7 +23,7 @@ export async function POST(request: Request) {
             });
             return response;
         } else {
-            return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
+            return NextResponse.json({ message: 'Invalid credentials', adminUsername, jwtSecret, adminPasswordHash }, { status: 401 });
         }
     } catch (e: any) {
         console.log('error:', e);
