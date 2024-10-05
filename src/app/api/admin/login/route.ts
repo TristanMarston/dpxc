@@ -23,7 +23,7 @@ export async function POST(request: Request) {
             });
             return response;
         } else {
-            return NextResponse.json({ message: 'Invalid credentials', adminUsername, jwtSecret, adminPasswordHash }, { status: 401 });
+            return NextResponse.json({ message: 'Invalid credentials' }, { status: 401 });
         }
     } catch (e: any) {
         console.log('error:', e);
