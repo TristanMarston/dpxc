@@ -8,7 +8,7 @@ const page = () => {
     return (
         <Suspense>
             <Toaster />
-            <div className='w-full h-full flex flex-col items-center px-5'>
+            <div className='w-full h-fit flex flex-col items-center px-5'>
                 <Navbar />
                 <SignUp />
             </div>
