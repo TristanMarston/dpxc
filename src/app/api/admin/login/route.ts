@@ -7,6 +7,8 @@ const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH!;
 const jwtSecret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
 export async function POST(request: Request) {
+    console.log(adminUsername);
+    console.log(jwtSecret);
     try {
         const { username, password } = await request.json();
 

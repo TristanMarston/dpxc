@@ -19,7 +19,6 @@ const Navbar = () => {
             axios
                 .get('/api/admin/fetch/collections/navbar')
                 .then((res) => {
-                    console.log(res);
                     if (res.status === 200 || res.status === 201) {
                         setLinks(() => {
                             const ret: NavLink[] = [];
@@ -40,35 +39,6 @@ const Navbar = () => {
                 });
         }
     }, []);
-
-    // const links: NavLink[] = [
-    //     {
-    //         title: 'Cross Country',
-    //         href: '',
-    //         isDropdown: true,
-    //         dropdownOptions: [
-    //             { title: 'New Runners', href: '', isDropdown: false, description: "Let's begin here." },
-    //             { title: 'DP Invitational', href: '', isDropdown: false, description: 'Our home XC meet.' },
-    //             { title: 'Team Captains', href: '', isDropdown: false, description: 'Meet the best.' },
-    //             { title: 'Training Plans', href: '', isDropdown: false, description: 'We work hard.' },
-    //         ],
-    //     },
-    //     {
-    //         title: 'Distance Track',
-    //         href: '',
-    //         isDropdown: true,
-    //         dropdownOptions: [
-    //             { title: 'Schedule 2025', href: '', isDropdown: false, description: 'Our plan.' },
-    //             { title: 'Track Meets', href: '', isDropdown: false, description: 'Where we shine.' },
-    //             { title: 'Plan for Week', href: '', isDropdown: false, description: 'What we do.' },
-    //             { title: 'Race Day Prep', href: '', isDropdown: false, description: 'How to prepare.' },
-    //         ],
-    //     },
-    //     { title: 'Donate', href: '', isDropdown: false },
-    //     { title: 'Volunteer', href: '', isDropdown: false },
-    //     { title: 'Our Athletes', href: '', isDropdown: false },
-    //     { title: 'Schedule', href: '', isDropdown: false },
-    // ];
 
     return (
         <>
