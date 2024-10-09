@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Unbounded } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
 const unbounded = Unbounded({ subsets: ['latin'] });
@@ -24,7 +25,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang='en'>
-            <body className={`${unbounded.className} overflow-x-hidden h-screen w-screen p-0 bg-background`}>{children}</body>
+            <body className={`${unbounded.className} overflow-x-hidden h-screen w-screen p-0 bg-background`}>
+                {children}
+                <Analytics />
+            </body>
         </html>
     );
 }
