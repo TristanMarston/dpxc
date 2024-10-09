@@ -15,7 +15,7 @@ const LinesAnimation = ({ text, offset }: { text: string; offset: number }) => {
             </motion.div>
             <motion.p
                 variants={itemVariants(offset)}
-                className={`${delaGothic.className} text-nowrap text-secondary text-center uppercase tracking-wide [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
+                className={`${delaGothic.className} text-nowrap w-fit text-secondary text-center uppercase tracking-wide [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
             >
                 {text}
             </motion.p>

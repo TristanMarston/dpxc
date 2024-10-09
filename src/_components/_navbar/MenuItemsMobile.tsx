@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const HoverListItem = ({ title, href, className }: { title: string; href: string; className?: string }) => {
+const HoverListItem = ({ title, href, className, setIsOpen }: { title: string; href: string; className?: string; setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -12,6 +12,7 @@ const HoverListItem = ({ title, href, className }: { title: string; href: string
             <Link
                 href={href || '#'}
                 onClick={(e) => {
+                    setIsOpen(false);
                     if (href.startsWith('#')) {
                         e.preventDefault();
                         document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
@@ -34,12 +35,14 @@ const HoverListItemCollapsible = ({
     selectedDropdown,
     setSelectedDropdown,
     dropdownOptions,
+    setIsOpen,
 }: {
     title: string;
     href: string;
     selectedDropdown: string;
     setSelectedDropdown: React.Dispatch<React.SetStateAction<string>>;
     dropdownOptions: NavLink[] | undefined;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
     const parentVariants = {
         open: { height: '100%', transition: { duration: 0.5 } },
@@ -61,16 +64,16 @@ const HoverListItemCollapsible = ({
             </div>
             <motion.ul variants={contentVariants} animate={selectedDropdown === title ? 'open' : 'closed'} className='flex flex-col gap-3'>
                 {dropdownOptions.map(({ title, href }, index) => (
-                    <HoverListItem title={title} href={href} key={title + index} className='text-base text-right' />
+                    <HoverListItem title={title} href={href} key={title + index} setIsOpen={setIsOpen} className='text-base text-right' />
                 ))}
             </motion.ul>
         </motion.li>
     ) : (
-        <HoverListItem title={title} href={href} />
+        <HoverListItem title={title} href={href} setIsOpen={setIsOpen} />
     );
 };
 
-const MenuItems = ({ links, isOpen }: { links: NavLink[]; isOpen: boolean }) => {
+const MenuItems = ({ links, isOpen, setIsOpen }: { links: NavLink[]; isOpen: boolean; setIsOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('null');
 
     useEffect(() => {
@@ -91,9 +94,10 @@ const MenuItems = ({ links, isOpen }: { links: NavLink[]; isOpen: boolean }) => 
                             selectedDropdown={selectedDropdown}
                             setSelectedDropdown={setSelectedDropdown}
                             dropdownOptions={dropdownOptions}
+                            setIsOpen={setIsOpen}
                         />
                     ) : (
-                        <HoverListItem title={title} href={href} key={title + index} />
+                        <HoverListItem title={title} href={href} key={title + index} setIsOpen={setIsOpen} />
                     )
                 )}
             </ul>

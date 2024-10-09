@@ -25,6 +25,7 @@ type Participant = {
 const CommunitySignUp = () => {
     const [formData, setFormData] = useState<Participant>({ firstName: '', lastName: '', email: '', birthYear: 0, birthMonth: '', birthDay: 0, state: '', city: '', zipCode: 0 });
     const [submitReady, setSubmitReady] = useState(false);
+    const [waiverAgreed, setWaiverAgreed] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -109,7 +110,10 @@ const CommunitySignUp = () => {
             <div className='w-full flex justify-center'>
                 <Dialog>
                     <DialogTrigger
-                        onClick={() => setSubmitReady(false)}
+                        onClick={() => {
+                            setSubmitReady(false);
+                            setWaiverAgreed(false);
+                        }}
                         className='bg-secondary flex items-center gap-2 mt-3 px-20 tiny:px-24 py-1.5 rounded-full shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(0,30,68,0.15)] border-2 border-background hover:bg-secondary-hover hover:scale-105 transition-all text-sm mobile:text-base'
                     >
                         Submit
@@ -125,11 +129,21 @@ const CommunitySignUp = () => {
                                 I understand that there is a <b>$15 participation fee</b>, and will show up to the event with $15.
                             </span>
                         </span>
+                        <span className='text-sm flex items-center'>
+                            <Checkbox checked={waiverAgreed} onCheckedChange={(checked: boolean) => setWaiverAgreed(checked)} className='w-5 h-5 rounded-md' />
+                            <span className='ml-2'>By checking this box, I acknowledge that I have read and agree to the terms of the waiver below.</span>
+                        </span>
+                        <div className='max-h-20 overflow-y-scroll p-2 text-xs shadow-[0_3px_10px_rgb(0,0,0,0.1)] rounded-md'>
+                            The Undersigned hereby agrees to defend, indemnify, and hold harmless Dos Pueblos High School and Santa Barbara Unified School District, its officials,
+                            employers and agents from and against all loss, liability, charges, and expenses (including attorneys&apos; fees) and cases of whatsoever character may arise
+                            by reason of the participation in this year&apos;s Dos Pueblos Cross Country Invitational or be connected anyway therewith. The above-mentioned agencies do
+                            not provide accident, medical, liability or workers compensation insurance for program participants.
+                        </div>
                         <DialogClose
-                            onClick={() => submitReady && handleSubmit()}
-                            disabled={!submitReady}
+                            onClick={() => submitReady && waiverAgreed && handleSubmit()}
+                            disabled={!submitReady || !waiverAgreed}
                             className={`${
-                                submitReady ? 'opacity-100' : 'opacity-60 cursor-not-allowed'
+                                submitReady && waiverAgreed ? 'opacity-100' : 'opacity-60 cursor-not-allowed'
                             } bg-background transition-all mt-2 hover:bg-background-light w-full text-secondary h-10 rounded-md text-sm shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]`}
                         >
                             Submit

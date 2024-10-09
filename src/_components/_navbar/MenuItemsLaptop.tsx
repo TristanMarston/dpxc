@@ -50,8 +50,9 @@ const MenuItem = ({ title, href }: { title: string; href: string }) => {
                         document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
                     }
                 }}
+                className='font-semibold text-sm desktop:text-base'
             >
-                <NavigationMenuLink className={`font-semibold text-sm desktop:text-base`}>{title}</NavigationMenuLink>
+                {title}
             </Link>
         </NavigationMenuItem>
     );

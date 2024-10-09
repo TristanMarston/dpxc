@@ -30,7 +30,7 @@ const MobileMenu = ({ isOpen, setIsOpen, links }: { isOpen: boolean; setIsOpen: 
     return (
         <>
             <div ref={scope}>
-                <MenuItems links={links} isOpen={isOpen} />
+                <MenuItems links={links} isOpen={isOpen} setIsOpen={setIsOpen} />
             </div>
         </>
     );

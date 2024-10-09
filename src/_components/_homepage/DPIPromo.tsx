@@ -6,7 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
 
 const DPIPromo = () => {
     return (
