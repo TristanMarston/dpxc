@@ -6,7 +6,7 @@ import LinesAnimation from './LinesAnimation';
 import AutoscrollCarousel from './Carousel';
 import { delaGothic } from '@/app/context';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CircleArrowRight } from 'lucide-react';
 
 const Hero = () => {
     const buttons: NavLink[] = [
@@ -21,10 +21,10 @@ const Hero = () => {
                     <motion.div variants={itemVariants(2)}>
                         <Link
                             href='/dpi/signup'
-                            className='bg-background-lighter rounded-full shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(255,213,0,0.15)] border border-secondary text-secondary text-xs px-3 py-1 flex gap-1 items-center group hover:scale-105 transition-all cursor-pointer'
+                            className='bg-background-lighter rounded-full shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(255,213,0,0.15)] border border-secondary text-secondary text-xs px-3 py-1 flex gap-1.5 items-center group hover:scale-105 transition-all cursor-pointer'
                         >
-                            <span>Sign up for DPI now!</span>
-                            <ArrowRight className='group-hover:translate-x-[2px] transition-all' />
+                            <span>Sign up to run the Goodland!</span>
+                            <CircleArrowRight className='group-hover:translate-x-[2px] transition-all' strokeWidth={1.5} />
                         </Link>
                     </motion.div>
                     <span className='flex justify-center w-full'>

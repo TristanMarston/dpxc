@@ -60,15 +60,18 @@ const CommunitySignUp = () => {
             (new Date().getTime() - new Date(`${sendObject.birthYear}-${sendObject.birthMonth ? months[sendObject.birthMonth.toLowerCase()] : ''}-${sendObject.birthDay}`).getTime()) /
                 (365.25 * 24 * 60 * 60 * 1000)
         );
+        delete sendObject.birthYear;
+        delete sendObject.birthMonth;
+        delete sendObject.birthDay;
         sendObject.age = age;
         console.log(sendObject);
 
         const toastID = toast.loading('Signing up...', { className: '!bg-secondary-light !text-background', position: 'bottom-right' });
 
         axios
-            .post(`/api/admin/post/dpi-community-participants`, sendObject)
+            .post(`/api/admin/post/goodland-community-participants`, sendObject)
             .then((res) => {
-                if (res.status === 200) {
+                if (res.status >= 200 && res.status < 300) {
                     toast.success('Successfully signed up!', {
                         id: toastID,
                         duration: 4000,
@@ -86,7 +89,7 @@ const CommunitySignUp = () => {
     };
 
     return (
-        <form className='w-full border-2 border-secondary rounded-lg p-3 tablet:p-4 bg-background-light'>
+        <form className='w-full border-2 border-secondary rounded-3xl p-3 tablet:p-5 bg-background-light'>
             <h4 className='text-secondary font-bold mb-1'>Name</h4>
             <div className='flex flex-col gap-3 px-2 pt-2'>
                 {['firstName', 'lastName', 'email'].map((title: string, index: number) => (
@@ -121,12 +124,12 @@ const CommunitySignUp = () => {
                     <DialogContent className='bg-secondary rounded-md gap-2.5 text-background border-0 w-[95vw] mobile:w-[90vw] tablet:w-[512px]' aria-describedby='dialog-content'>
                         <DialogTitle className='text-[1.35rem] phone:text-2xl text-background'>Ready to submit?</DialogTitle>
                         <p className='text-sm'>
-                            The community race will take place on <b>October 12th, 2024</b> at 8:00 A.M.
+                            The community race will take place on <b>October 11th, 2025</b> at 8:00 A.M.
                         </p>
                         <span className='text-sm flex items-center'>
                             <Checkbox checked={submitReady} onCheckedChange={(checked: boolean) => setSubmitReady(checked)} className='w-5 h-5 rounded-md' />
                             <span className='ml-2'>
-                                I understand that there is a <b>$15 participation fee</b>, and will show up to the event with $15.
+                                I understand that there is a <b>$10 participation fee</b>, and will show up to the event with $10 in cash.
                             </span>
                         </span>
                         <span className='text-sm flex items-center'>
@@ -188,8 +191,8 @@ const Input = ({
             />
             <label
                 htmlFor={title}
-                className={`transform text-secondary select-none capitalize cursor-text transition-all bg-background-light origin-[0] duration-300 absolute opacity-90 top-0 left-0 h-3/4 translate-y-1.5 flex items-center ml-3.5 text-sm ${
-                    focused || (formData[title].toString().length > 0 && formData[title] !== 0) ? '!text-[11px] !h-1/2 !-translate-y-2.5 !ml-2.5 !px-1 !opacity-100' : ''
+                className={`text-secondary transform select-none capitalize cursor-text transition-all bg-background-light origin-[0] duration-300 absolute opacity-90 top-0 left-0 h-3/4 translate-y-1.5 flex items-center ml-3.5 text-sm ${
+                    focused || (formData[title].toString().length > 0 && formData[title] !== 0) ? '!text-[11px] !h-1/2 !-translate-y-2.5 !ml-2.5 !px-1 !opacity-100 font-semibold' : 'font-normal'
                 }`}
             >
                 {title.replace(/([a-z])([A-Z])/g, '$1 $2')}

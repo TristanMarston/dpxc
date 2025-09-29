@@ -1,7 +1,10 @@
+'use client';
+
 import Footer from '@/_components/_footer/Footer';
 import Hero from '@/_components/_hero/Hero';
 import DPIPromo from '@/_components/_homepage/DPIPromo';
 import Navbar from '@/_components/_navbar/Navbar';
+import FAQ from '@/_components/FAQ';
 import { Toaster } from 'react-hot-toast';
 
 const page = () => {
@@ -13,6 +16,7 @@ const page = () => {
                 <Hero />
             </div>
             <DPIPromo />
+            <FAQ className='bg-background-lighter pb-72' setWidth />
             <Footer negativeSpacing={true} />
         </>
     );

@@ -11,7 +11,7 @@ const DPIPromo = () => {
     return (
         <>
             <BlueLayeredWave />
-            <section className='bg-background-lighter w-screen flex flex-col items-center px-5 pb-72'>
+            <section className='bg-background-lighter w-screen flex flex-col items-center pb-16'>
                 <motion.h2
                     initial='hidden'
                     whileInView='visible'
@@ -38,14 +38,14 @@ const DPIPromo = () => {
                         viewport={{ once: true }}
                         className='w-full text-secondary mt-3 text-xs tiny:text-sm taptop:text-base'
                     >
-                        Join us on <b>October 12, 2024</b>, for our annual home cross country meet, where runners of all ages and abilities can take part in our community or youth race.
+                        Join us on Saturday, <b>October 11, 2025</b>, to run the goodland in our annual home cross country meet, where runners of all ages and abilities can take part in our community or youth race.
                         It&apos;s a great chance to test your skills on the same course as our team while enjoying a fun, competitive atmosphere. Sign up now to secure your spot and be
                         part of a memorable event!
                     </motion.p>
                     <motion.span initial='hidden' whileInView='visible' variants={scrollVariants(0)} viewport={{ once: true }}>
                         <Link
                             href='/dpi/signup'
-                            className='bg-secondary flex items-center gap-2 mt-3 px-3 py-1.5 rounded-full shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(0,30,68,0.15)] border-2 border-background hover:bg-secondary-hover hover:scale-105 transition-all text-sm mobile:text-base'
+                            className='bg-secondary flex items-center gap-2 mt-3 px-5 py-1.5 rounded-full shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(0,30,68,0.15)] border-2 border-background hover:bg-secondary-hover hover:scale-105 transition-all text-sm mobile:text-base'
                         >
                             Sign up now!
                             <ArrowRight />

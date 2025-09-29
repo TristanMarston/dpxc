@@ -29,9 +29,9 @@ const SignUp = () => {
                 >
                     DPI SIGN UP
                 </motion.div>
-                <motion.h4 variants={scrollVariants(0.5)} className='text-secondary text-[12px] phone:text-[13px] tablet:text-sm taptop:text-base my-3'>
+                <motion.h4 variants={scrollVariants(0.3)} className='text-secondary text-[12px] phone:text-[13px] tablet:text-sm taptop:text-base my-3'>
                     <p>
-                        Join us on <b>October 12, 2024</b>, for our annual home cross country meet, where runners of all ages and abilities can take part in the exciting community race.
+                        Join us on Saturday, <b>October 11, 2025</b>, to run the goodland in our annual home cross country meet, where runners of all ages and abilities can take part in our community or youth race.
                         It&apos;s a great chance to test your skills on the same course as our team while enjoying a fun, competitive atmosphere. Sign up now to secure your spot and be
                         part of a memorable event!
                     </p>
@@ -40,14 +40,14 @@ const SignUp = () => {
                     </p>
                 </motion.h4>
                 <motion.div
-                    variants={scrollVariants(0.7)}
-                    className='flex gap-2 w-full rounded-full bg-background-light mb-3 border-2 border-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)]'
+                    variants={scrollVariants(0.5)}
+                    className='flex gap-2 w-full rounded-full bg-background-light mb-5 border-2 border-secondary shadow-[0_4px_30px_rgba(0,0,0,.4)]'
                 >
                     {['community', 'youth'].map((type) => (
                         <DisplayChip key={type} view={type as View} selected={selected} setSelected={setSelected} />
                     ))}
                 </motion.div>
-                <motion.div variants={scrollVariants(0.8)} className='w-full'>
+                <motion.div variants={scrollVariants(0.6)} className='w-full'>
                     {selected === 'community' ? <CommunitySignUp /> : <YouthSignUp />}
                 </motion.div>
             </motion.div>

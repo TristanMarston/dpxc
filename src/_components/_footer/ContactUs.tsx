@@ -39,7 +39,7 @@ const ContactUs = () => {
             axios
                 .post(`/api/sendMessage`, formData)
                 .then((res) => {
-                    if (res.status === 201) {
+                    if (res.status >= 200 && res.status < 300) {
                         toast.success('Message successfully sent!', {
                             id: toastID,
                             duration: 4000,

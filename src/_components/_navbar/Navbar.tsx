@@ -10,35 +10,61 @@ import MenuToggle from './MenuToggle';
 import Link from 'next/link';
 import axios from 'axios';
 
+const navLinks: NavLink[] = [
+    {
+        title: 'DPI Signup',
+        href: '#',
+        isDropdown: true,
+        dropdownOptions: [
+            {
+                title: 'Community Race',
+                href: '/dpi/signup?race=community',
+                description: 'Take part in our community race!',
+            },
+            {
+                title: 'Youth Race',
+                href: '/dpi/signup?race=youth',
+                description: 'Sign up a little one to race!',
+            },
+        ],
+    },
+    {
+        title: 'Contact Us',
+        href: '#contact',
+        isDropdown: false,
+        dropdownOptions: [],
+    },
+];
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const [links, setLinks] = useState<NavLink[]>([]);
+    const [links, setLinks] = useState<NavLink[]>(navLinks);
 
-    useEffect(() => {
-        if (links.length === 0) {
-            axios
-                .get('/api/admin/fetch/collections/navbar')
-                .then((res) => {
-                    if (res.status === 200 || res.status === 201) {
-                        setLinks(() => {
-                            const ret: NavLink[] = [];
-                            res.data.data.forEach((item: any) => {
-                                const obj: NavLink = { title: '', href: '', isDropdown: false };
-                                obj.title = item.title;
-                                obj.href = item.href;
-                                obj.isDropdown = item.isDropdown;
-                                obj.dropdownOptions = [...item.dropDownOptions];
-                                ret.push(obj);
-                            });
-                            return ret;
-                        });
-                    }
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (links.length === 0) {
+    //         axios
+    //             .get('/api/admin/fetch/collections/navbar')
+    //             .then((res) => {
+    //                 if (res.status === 200 || res.status === 201) {
+    //                     setLinks(() => {
+    //                         const ret: NavLink[] = [];
+    //                         res.data.data.forEach((item: any) => {
+    //                             const obj: NavLink = { title: '', href: '', isDropdown: false };
+    //                             obj.title = item.title;
+    //                             obj.href = item.href;
+    //                             obj.isDropdown = item.isDropdown;
+    //                             obj.dropdownOptions = [...item.dropDownOptions];
+    //                             ret.push(obj);
+    //                         });
+    //                         return ret;
+    //                     });
+    //                 }
+    //             })
+    //             .catch((err) => {
+    //                 console.error(err);
+    //             });
+    //     }
+    // }, []);
 
     return (
         <>

@@ -9,7 +9,7 @@ export const delaGothic = Dela_Gothic_One({ weight: '400', subsets: ['latin'], d
 export type NavLink = {
     title: string;
     href: string;
-    isDropdown: boolean;
+    isDropdown?: boolean;
     dropdownOptions?: NavLink[];
     description?: string;
 };
