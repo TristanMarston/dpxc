@@ -103,7 +103,7 @@ let questions: Question[] = [
         question: 'Is there merchandise available?',
         body: () => (
             <div className='text-secondary'>
-                <p>Yes, merchandise will be available for purchase! In addition to a Snack Shack, we have food vendors on scene so you don't have to run out for lunch.</p>
+                <p>Yes, merchandise will be available for purchase! In addition to a Snack Shack, we have food vendors on scene so you don&apos;t have to run out for lunch.</p>
             </div>
         ),
     },
@@ -113,7 +113,7 @@ let questions: Question[] = [
             <div className='text-secondary'>
                 <p className='pb-2'>The top 20 finishers in each race will receive our unique awards.</p>
                 <p className='pb-2'>
-                    First and second place teams in each race will receive plaques as soon as the team scores are confirmed. Team scores are based on the sum of a team's{' '}
+                    First and second place teams in each race will receive plaques as soon as the team scores are confirmed. Team scores are based on the sum of a team&apos;s{' '}
                     <b>top three finishers</b>, with the lowest score taking the win.
                 </p>
                 <p>
