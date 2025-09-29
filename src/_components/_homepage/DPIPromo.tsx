@@ -11,7 +11,7 @@ const DPIPromo = () => {
     return (
         <>
             <BlueLayeredWave />
-            <section className='bg-background-lighter w-screen flex flex-col items-center pb-16'>
+            <section className='bg-background-lighter w-screen flex flex-col items-center pb-16 px-5'>
                 <motion.h2
                     initial='hidden'
                     whileInView='visible'

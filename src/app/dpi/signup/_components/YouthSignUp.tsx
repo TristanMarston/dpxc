@@ -115,7 +115,7 @@ const YouthSignUp = () => {
                         <span className='text-sm flex items-center'>
                             <Checkbox checked={submitReady} onCheckedChange={(checked: boolean) => setSubmitReady(checked)} className='w-5 h-5 rounded-md' />
                             <span className='ml-2'>
-                                I understand that there is a <b>$15 participation fee</b>, and will show up to the event with $15.
+                                I understand that there is a <b>$10 participation fee</b>, and will show up to the event with $10.
                             </span>
                         </span>
                         <span className='text-sm flex items-center'>
