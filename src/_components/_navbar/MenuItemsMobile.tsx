@@ -18,7 +18,7 @@ const HoverListItem = ({ title, href, className, setIsOpen }: { title: string; h
                         document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
                     }
                 }}
-                className={`font-bold text-xl min-[320px]:text-2xl min-[400px]:text-3xl w-full flex justify-end`}
+                className={`font-bold text-xl min-[360px]:text-2xl min-[450px]:text-3xl w-full flex justify-end`}
             >
                 <span className={`inline-block text-secondary text-right ${className}`}>
                     {title}
@@ -57,7 +57,7 @@ const HoverListItemCollapsible = ({
     return dropdownOptions ? (
         <motion.li className='flex flex-col cursor-pointer text-secondary' variants={parentVariants} initial={false} animate={selectedDropdown === title ? 'open' : 'closed'}>
             <div className='flex gap-2 items-center mb-2' onClick={() => setSelectedDropdown((prev) => (prev === title ? 'null' : title))}>
-                <Link href={href || '#'} className='font-bold text-xl min-[320px]:text-2xl min-[400px]:text-3xl select-none text-right'>
+                <Link href={href || '#'} className='font-bold text-xl min-[360px]:text-2xl min-[450px]:text-3xl select-none text-right'>
                     {title}
                 </Link>
                 <ChevronDown className={`${title === selectedDropdown ? 'rotate-180' : 'rotate-0'} w-8 h-8 transition-all`} />

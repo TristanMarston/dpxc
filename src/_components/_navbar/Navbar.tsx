@@ -12,7 +12,7 @@ import axios from 'axios';
 
 const navLinks: NavLink[] = [
     {
-        title: 'DPI Signup',
+        title: 'Run the Goodland',
         href: '#',
         isDropdown: true,
         dropdownOptions: [

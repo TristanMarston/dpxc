@@ -25,9 +25,9 @@ const SignUp = () => {
             <motion.div initial='hidden' animate='visible' className='mt-28 flex flex-col items-start w-full px-2 mobile:px-3 tablet:px-4 taptop:px-8 laptop:px-12'>
                 <motion.div
                     variants={scrollVariants(0)}
-                    className={`${delaGothic.className} text-nowrap text-3xl phone:text-4xl mobile:text-5xl tablet:text-6xl taptop:text-[66px] laptop:text-7xl text-left font-bold text-secondary tracking-wide [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
+                    className={`${delaGothic.className} text-nowrap text-xl min-[375px]:text-2xl phone:text-[26px] mobile:text-3xl tablet:text-4xl taptop:text-5xl laptop:text-6xl text-left font-bold text-secondary tracking-wide [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
                 >
-                    DPI SIGN UP
+                    RUN THE GOODLAND
                 </motion.div>
                 <motion.h4 variants={scrollVariants(0.3)} className='text-secondary text-[12px] phone:text-[13px] tablet:text-sm taptop:text-base my-3'>
                     <p>
