@@ -88,7 +88,7 @@ const CreateDocument = ({ collection, duplicate, data }: { collection: string; d
             .post(`/api/admin/post/${collection}`, JSON.stringify(submitData))
             .then((res) => {
                 console.log(res);
-                if (res.status === 201) {
+                if (res.status >= 200 && res.status < 300) {
                     toast.success('Successfully created!', {
                         id: toastID,
                         duration: 4000,

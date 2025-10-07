@@ -9,51 +9,15 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
-const pageCollections: string[] = [];
-const componentCollections: string[] = ['navbar'];
-
 const AdminDashboard = () => {
-    const [collections, setCollections] = useState<string[]>([]);
-    const [pages, setPages] = useState<string[]>([]);
-    const [components, setComponents] = useState<string[]>([]);
-    const [fetched, setFetched] = useState(false);
     const screenWidth = useScreenWidth();
 
-    const [combinedCollections, setCombinedCollections] = useState<{ name: string; type: string }[]>([]);
+    const combinedCollections: { name: string; type: string }[] = [
+        { name: 'messages', type: 'collection' },
+        { name: 'goodland-community-participants', type: 'collection' },
+        { name: 'goodland-youth-participants', type: 'collection' },
+    ];
     const [filteredResults, setFilteredResults] = useState<{ name: string; type: string }[]>([]);
-
-    useEffect(() => {
-        const fetchCollections = async () => {
-            axios
-                .get('/api/admin/fetch/collections')
-                .then((res) => {
-                    if (res.status === 201) {
-                        const collectionsData = [...res.data.names.filter((name: string) => !pageCollections.includes(name) && !componentCollections.includes(name))];
-                        const componentsData = [...res.data.names.filter((name: string) => componentCollections.includes(name))];
-                        const pagesData = [...res.data.names.filter((name: string) => pageCollections.includes(name))];
-
-                        setCombinedCollections(() => {
-                            const result: { name: string; type: string }[] = [];
-                            collectionsData.forEach((name) => result.push({ name, type: 'collection' }));
-                            componentsData.forEach((name) => result.push({ name, type: 'component' }));
-                            pagesData.forEach((name) => result.push({ name, type: 'page' }));
-                            return result;
-                        });
-
-                        setCollections(() => collectionsData);
-                        setComponents(() => componentsData);
-                        setPages(() => pagesData);
-                        setFetched(true);
-                    }
-                })
-                .catch((err) => {
-                    console.log('Error fetching data:', err.response ? err.response.data : err.message);
-                    console.error(err);
-                });
-        };
-
-        fetchCollections();
-    }, []);
 
     return (
         <div className='mt-28 text-secondary w-full flex flex-col items-center gap-6 max-w-[1400px]'>
@@ -76,25 +40,16 @@ const AdminDashboard = () => {
                 <ResizableHandle withHandle={screenWidth > 700} className='text-background bg-secondary' />
                 <ResizablePanel defaultSize={65} minSize={40} maxSize={75} className='max-lablet:!basis-auto'>
                     <div className='flex flex-col gap-6 h-full p-6 overflow-y-scroll max-h-[500px] lablet:max-h-none'>
-                        {fetched ? (
-                            filteredResults.map(({ name, type }, index) => (
-                                <Link
-                                    href={`/admin/${type}/${name.replaceAll(' ', '-')}`}
-                                    key={name + index}
-                                    className='w-full min-h-[150px] rounded-xl bg-background-light border-2 border-secondary shadow-[5px_5px_0px_0px_rgba(255,213,0)] flex flex-col justify-between p-4 transition-all hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-background-lighter cursor-pointer'
-                                >
-                                    <h3 className='font-bold tracking-wider lowercase text-lg'>{name}</h3>
-                                    <h6 className='font-semibold uppercase tracking-wide text-sm'>{type}</h6>
-                                </Link>
-                            ))
-                        ) : (
-                            <>
-                                <Skeleton className='w-full min-h-[150px] rounded-xl bg-background-light border-2 border-secondary shadow-[5px_5px_0px_0px_rgba(255,213,0)] flex flex-col justify-between p-4 transition-all hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-background-lighter cursor-pointer' />
-                                <Skeleton className='w-full min-h-[150px] rounded-xl bg-background-light border-2 border-secondary shadow-[5px_5px_0px_0px_rgba(255,213,0)] flex flex-col justify-between p-4 transition-all hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-background-lighter cursor-pointer' />
-                                <Skeleton className='w-full min-h-[150px] rounded-xl bg-background-light border-2 border-secondary shadow-[5px_5px_0px_0px_rgba(255,213,0)] flex flex-col justify-between p-4 transition-all hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-background-lighter cursor-pointer' />
-                                <Skeleton className='w-full min-h-[150px] rounded-xl bg-background-light border-2 border-secondary shadow-[5px_5px_0px_0px_rgba(255,213,0)] flex flex-col justify-between p-4 transition-all hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-background-lighter cursor-pointer' />
-                            </>
-                        )}
+                        {filteredResults.map(({ name, type }, index) => (
+                            <Link
+                                href={`/admin/${type}/${name.replaceAll(' ', '-')}`}
+                                key={name + index}
+                                className='w-full min-h-[150px] rounded-xl bg-background-light border-2 border-secondary shadow-[5px_5px_0px_0px_rgba(255,213,0)] flex flex-col justify-between p-4 transition-all hover:shadow-none hover:translate-x-[5px] hover:translate-y-[5px] hover:bg-background-lighter cursor-pointer'
+                            >
+                                <h3 className='font-bold tracking-wider lowercase text-lg'>{name}</h3>
+                                <h6 className='font-semibold uppercase tracking-wide text-sm'>{type}</h6>
+                            </Link>
+                        ))}
                     </div>
                 </ResizablePanel>
             </ResizablePanelGroup>

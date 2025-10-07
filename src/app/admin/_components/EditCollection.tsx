@@ -43,14 +43,14 @@ const EditCollection = ({ collection }: { collection: string }) => {
                     <div className='w-full flex flex-col items-center'>
                         <section className='text-center flex flex-col items-center'>
                             <h1
-                                className={`${delaGothic.className} text-3xl min-[390px]:text-4xl mobile:text-5xl tablet:text-6xl taptop:text-7xl text-center font-bold text-secondary tracking-wide uppercase [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
+                                className={`${delaGothic.className} text-2xl min-[350px]:text-3xl min-[390px]:text-4xl min-[520px]:text-5xl min-[700px]:text-6xl text-center font-bold text-secondary tracking-wide uppercase [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
                             >
-                                {collection}
+                                {collection.replaceAll('-', ' ')}
                             </h1>
                             <h3
                                 className={`${delaGothic.className} text-base mt-3 max-w-[700px] text-center font-bold text-secondary tracking-wide [text-shadow:_3px_3px_3px_rgba(0,0,0)]`}
                             >
-                                This is the {collection} collection, you may edit any of the fields below.
+                                This is the {collection.replaceAll('-', ' ')} collection, you may edit any of the fields below.
                             </h3>
                         </section>
                         <ActionBar collection={collection} />

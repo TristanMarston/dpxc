@@ -30,6 +30,7 @@ const AdminLogin = () => {
                         id: toastID,
                         duration: 4000,
                     });
+
                     router.push('/admin');
                 }
             })
