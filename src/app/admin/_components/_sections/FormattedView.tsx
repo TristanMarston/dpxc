@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { ChevronDown, ChevronRight, Clipboard, Copy, Pencil, Trash2 } from 'lucide-react';
-import { useState } from 'react';
+import { ChevronDown, ChevronRight, Clipboard, Copy, Hash, Pencil, Search, Trash2 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import EditDocument from './EditDocument';
 import axios from 'axios';
@@ -18,6 +18,18 @@ const FormattedView = ({ collection }: { collection: string }) => {
     const [editDialog, setEditDialog] = useState(false);
     const [duplicateDialog, setDuplicateDialog] = useState(false);
     const [deleteSection, setDeleteSection] = useState(false);
+    const [query, setQuery] = useState('');
+    const [filteredData, setFilteredData] = useState<any[]>(collectionData);
+
+    useEffect(() => {
+        if (schema.filter((key) => key.key === 'firstName' || key.key === 'lastName').length === 2) {
+            if (query.trim() === '') {
+                setFilteredData(collectionData);
+            } else {
+                setFilteredData(collectionData.filter((athlete) => `${athlete.firstName} ${athlete.lastName}`.toLowerCase().includes(query.toLowerCase())));
+            }
+        }
+    }, [query, collectionData]);
 
     const refreshDocuments = async () => {
         const result = await fetchCollectionData(collection);
@@ -71,8 +83,19 @@ const FormattedView = ({ collection }: { collection: string }) => {
     };
 
     return (
-        <div className='flex flex-col gap-3 w-full mt-3 mb-5'>
-            {collectionData.map((obj, index) => (
+        <div className='flex flex-col gap-3 w-full mt-3'>
+            {(collection === 'goodland-youth-participants' || collection === 'goodland-community-participants') && (
+                <span className={`flex relative`}>
+                    <input
+                        placeholder={'Name'}
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        className={`placeholder:text-secondary placeholder:opacity-80 mb-2 outline-none w-full bg-background-light text-secondary pl-10 pr-2 py-2 rounded-full shadow-[0_4px_30px_rgba(0,0,0,.4)]`}
+                    />
+                    <Search className='absolute left-3 top-3 opacity-80 w-5 h-5' />
+                </span>
+            )}
+            {filteredData.map((obj, index) => (
                 <div key={index}>
                     <div
                         key={obj._id + index}
@@ -85,7 +108,7 @@ const FormattedView = ({ collection }: { collection: string }) => {
                             </div>
                         )}
                         {schema.map(({ key, type, required }: { key: string; type: string; required: boolean }, index: number) =>
-                            (required || obj[key] || obj[key] === 'false') && typeof type !== 'object' ? (
+                            (required || key === 'bibNumber' || obj[key] || obj[key] === 'false') && typeof type !== 'object' ? (
                                 // <div key={key + index}>
                                 //     <span className='font-bold'>{key}</span>:{' '}
                                 //     <span
