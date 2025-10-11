@@ -264,7 +264,7 @@ const RegularObject = ({ objKey, type, obj }: { objKey: string; type: string; ob
     return (
         <div>
             <span className='font-bold'>{objKey}</span>:{' '}
-            <span className={`${type === 'string' ? 'text-green-400' : type === 'number' ? 'text-blue-600' : type === 'boolean' ? 'text-purple-400' : 'text-secondary'}`}>
+            <span className={`${type === 'string' ? 'text-green-400' : type === 'number' ? 'text-purple-400' : type === 'boolean' ? 'text-blue-600' : 'text-secondary'}`}>
                 {type === 'string' ? '"' : ''}
                 {obj[objKey].toString()}
                 {type === 'string' ? '"' : ''}
