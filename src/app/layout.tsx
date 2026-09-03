@@ -3,10 +3,6 @@ import { Unbounded } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 
-// TODO: Cache Components adoption. Refactor this route so this opt-out can be removed.
-// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
-
 const unbounded = Unbounded({ subsets: ['latin'] });
 
 export const metadata: Metadata = {

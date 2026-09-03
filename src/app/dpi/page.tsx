@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 const Page = () => {
     const router = useRouter();
 
-    useEffect(() => router.push('/dpi/community-sign-up'), []);
+    useEffect(() => router.push('/dpi/signup'), []);
 
     return <></>;
 };

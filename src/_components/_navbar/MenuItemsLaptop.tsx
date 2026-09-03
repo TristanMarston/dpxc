@@ -26,10 +26,10 @@ const MenuItemDropdown = ({ title, href, dropdownOptions }: { title: string; hre
                         className='w-full flex justify-start h-full'
                         key={title + description}
                     >
-                        <NavigationMenuLink className={`hover:bg-background-lighter rounded-md flex flex-col items-left w-full h-full p-3 text-secondary`}>
+                        <div className={`hover:bg-background-lighter rounded-md flex flex-col items-left w-full h-full p-3 text-secondary`}>
                             <h4 className='font-semibold'>{title}</h4>
                             <p className='font-light text-[12px]'>{description}</p>
-                        </NavigationMenuLink>
+                        </div>
                     </Link>
                 ))}
             </NavigationMenuContent>
