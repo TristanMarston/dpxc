@@ -1,4 +1,5 @@
-'use client';
+'use client';;
+import { use } from "react";
 
 import Navbar from '@/_components/_navbar/Navbar';
 import { Toaster } from 'react-hot-toast';
@@ -11,7 +12,8 @@ type ComponentProps = {
     collection: string;
 };
 
-const Page = ({ params }: { params: { collection: string } }) => {
+const Page = (props: { params: Promise<{ collection: string }> }) => {
+    const params = use(props.params);
     const customPage = useSearchParams().get('customPage');
 
     let DynamicComponent: React.ComponentType<ComponentProps> | null = null;

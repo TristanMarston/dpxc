@@ -3,7 +3,7 @@
 import { delaGothic, scrollVariants } from '@/app/context';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type JSX } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 type Question = {

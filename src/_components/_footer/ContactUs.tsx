@@ -22,7 +22,7 @@ const ContactUs = () => {
         subject: '',
         message: '',
     });
-    const messageRef = useRef() as React.RefObject<HTMLTextAreaElement>;
+    const messageRef = useRef(undefined) as React.RefObject<HTMLTextAreaElement | null>;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;

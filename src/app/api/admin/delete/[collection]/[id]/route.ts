@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 
-export async function DELETE(request: Request, { params }: { params: any }) {
+export async function DELETE(request: Request, props: { params: Promise<any> }) {
+    const params = await props.params;
     const { collection, id } = params;
     if (collection === null || collection.length === 0 || id === null || id.length === 0) return NextResponse.json({ message: 'Please provide collection and id.' }, { status: 500 });
 

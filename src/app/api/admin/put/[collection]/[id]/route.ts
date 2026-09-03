@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 
-export async function PUT(request: Request, { params }: { params: any }) {
+export async function PUT(request: Request, props: { params: Promise<any> }) {
+    const params = await props.params;
     const { collection, id } = params;
     const data = await request.json();
     if (Object.keys(data).length === 0) return NextResponse.json({ message: 'Please provide body.' }, { status: 500 });

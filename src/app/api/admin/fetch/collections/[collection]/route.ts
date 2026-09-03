@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { collection: string } }) {
+export async function GET(request: Request, props: { params: Promise<{ collection: string }> }) {
+    const params = await props.params;
     const { collection } = params;
 
     try {
